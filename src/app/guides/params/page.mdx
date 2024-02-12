@@ -5,32 +5,34 @@ A parameter starts with a semicolon and defines a placeholder in the url for a v
 
 ```javascript
 let Router = Routes(
-	<Root path=":language">
+	<App path=":language">
 		<User path="users/:userId">
-	</Root>,
+	</App>,
 )
 ```
 
-Urls like `/en/users/1` and `/de/users/2` will both match the general form `/:language/users/:userId` and the router will render these urls with the layout
+Urls like `/en/users/1` and `/es/users/42` will both match the general form `/:language/users/:userId` and the router will render both urls with this layout
 
 ```javascript
-<Root>
+<App>
 	<User>
-</Root>
+</App>
 ```
 
-The parameter names as used in the configuration and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
+The parameter names, as defined in the configuration, and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
 
 ```javascript
-function Root() {
+function App() {
 	let { language } = useParams()
+		...
 }
 ```
 
-Parameters of parent routes will also be included for each route component.
+Each route component also has access to the parameters of parent routes.
 
 ```javascript
 function User() {
 	let { language, userId } = useParams()
+		...
 }
 ```

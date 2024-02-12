@@ -1,6 +1,14 @@
 absoute relative path properties
 trailing slashes
 
+Advanced splat usage
+
+```javascript
+<Root path="/*/../test">
+    		<Files path="files/*">
+    	</Root>
+```
+
 There are no special rules for urls with a trailing `/`, if your url needs to end in a slash, just write them in the routes.
 This configuration will only a matching url for `/admin/users/`.
 

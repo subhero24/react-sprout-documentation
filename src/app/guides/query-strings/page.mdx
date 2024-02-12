@@ -1,0 +1,77 @@
+# Query strings
+
+Query strings in the route configuration can be used to match urls with a query string.
+You need to specify in the route configuration what parts of the url query string the component needs.
+
+### Search params with an assigned value
+
+Specifying a query string with search params with assigned values will only match the corresponding route if the url also has the same search param with that value.
+
+```javascript
+let Router = Routes(
+	<>
+		<Users path="sections?section=users" />
+		<Posts path="sections?section=posts" />
+		<Other path="sections" />
+	</>,
+)
+```
+
+### Search params with an epmty assignment
+
+Specifying a query string with search params with empty assignments will only render the corresponding route if the url also has the same search param regardless of the value.
+
+```javascript
+let Router = Routes(
+	<>
+		<Users path="users" />
+		<UserSearch path="users?search=" />
+	</>,
+)
+```
+
+### Search params without assignment
+
+Specifying a query string with search params without values will only render the corresponding route if the url also has the same search param regardless of the value.
+
+```javascript
+let Router = Routes(
+	<>
+		<Users path="users?search">
+	</>,
+)
+```
+
+```javascript
+let Router = Routes(
+	<Root>
+		<UserSearch path="users?type=admin&search">
+	</Root>,
+)
+```
+
+```javascript
+let Router = Routes(
+	<Root>
+		<UserSearch path="users?search">
+	</Root>,
+)
+```
+
+```javascript
+let Router = Routes(
+	<Root>
+		<UserSearch path="products/shoes?brand=nike&brand=adidas">
+	</Root>,
+)
+```
+
+<Note>
+	Specifying the query params in the configuration allows the query string to participate in the route matching algorithm.
+	It also enables very fine-grained data loading and caching.
+
+</Note>
+
+It also allows very fine-grained data loading in your components.
+
+Multipe combinations

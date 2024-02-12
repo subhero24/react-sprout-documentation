@@ -1,51 +1,55 @@
 # Splats
 
-Splats in the route configuration can be used to match anything that follows.
-A splat is written as an asterisk and defines a placeholder for the rest of the url.
-It must be the last part of the url. Splats in the middle of a url are not allowed.
+Splats in the route configuration can be used to match anything.
+It is a widcard written as an asterisk, and will match all the remaining segments of the url.
 
 ```javascript
 let Router = Routes(
-	<Root>
+	<App>
 		<Files path="files/*">
-	</Root>,
+	</App>,
 )
 ```
 
-Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render these urls with the layout
+Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render both urls urls with this layout
 
 ```javascript
-<Root>
+<App>
 	<Files>
-</Root>
+</App>
 ```
 
 The splat will be accessible inside the route components with the [useSplat](/hooks/use-splat) hook.
 
 ```javascript
-function Root() {
+function App() {
 	let splat = useSplat() // ['files', 'documents', 'reports', '2024', '05', '11']
+		...
 }
-```
 
-Only the parts of the url that are not specified in the configuration will be part of the splat.
-
-```javascript
 function Files() {
 	let splat = useSplat() // ['documents', 'reports', '2024', '05', '11']
+		...
 }
 ```
 
+Note that the splat is always availabe for every route component to inspect the remaining parts of the url. Even though in the configuration the splat is only on the deepest route.
+
+Also note that the splat is different for these route components. The `App` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `App` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.
+
 <Warning>
-	Defining splats for parent routes is not very useful, as they will match the rest of the url by default.
-	Only the deepest child routes need to specify the splat if they are interested in the rest of the url.
+    Be careful with defining splats for parent routes.
 
     ```javascript
     let Router = Routes(
-    	<Root path="/*">
-    		<Files path="files/*">
-    	</Root>,
+    	<Admin path="admin/*">
+    		<Users path="users">
+    	</Admin>,
     )
     ```
+
+    This configuration will never match anything. There is no segment `users` after the `Admin` route has consumed all the remaining parts of the url.
+
+    Splats should almost always be the last part of the path of the deepest child route! There are some extremely rare use cases that break this rule and they are documented in the [Advanced route paths](/guides/paths) guide.
 
 </Warning>

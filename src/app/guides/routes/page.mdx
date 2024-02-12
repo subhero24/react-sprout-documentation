@@ -52,7 +52,7 @@ function Admin(props) {
 
 <hr />
 
-While each route in the previous example specified one segment of the url, this is not a requirement. A route does not need to add anything to the url, or it can specify multiple segments at once.
+While each route in the previous example specified one segment of the url, this is not a requirement. A route does not need to add anything to the url, or it can specify multiple url segments at once.
 
 ```javascript
 let Router = Routes(
@@ -67,21 +67,24 @@ let Router = Routes(
 ```
 
 - The `Home` route does not have a path property and will not add anything to the url, so will be rendered at `/`.
-- The `Posts` route adds 2 segments at once to the url, so it will be rendered at `/admin/content/posts`.
+- The `Posts` route adds 2 url segments at once to the url, it will be rendered at `/admin/content/posts`.
 
-<Note>
-	Remember that it is not the url that determines the nesting structure of your routes. You should not nest two routes within a common parent only because their urls have something in common.
-	They should be nested inside a common parent however, if both routes render the same piece of the user interface. And this parent should be responsible for rendering the shared part.
+<hr />
+
+<Info>
+	Remember that it is not the url, but the user interface that determines the nesting structure of your routes. 
+	Routes that have no user interface in common should not be grouped under a common parent, even though their urls could be similar.
 
     While `Users` and `Posts` can both be found at `/admin/`, if they do not have anything in common besides the `admin` part of the url, it is preferred to have a route configuration like this:
 
     ```javascript
     let Router = Routes(
     	<Root path="/">
+    		<Home />
     		<Users path="admin/users" />
     		<Posts path="admin/posts" />
     	</Root>,
     )
     ```
 
-</Note>
+</Info>
