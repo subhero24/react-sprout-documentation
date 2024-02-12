@@ -1,0 +1,55 @@
+export const metadata = {
+  title: 'Router',
+  description: 'description',
+}
+
+# Router
+
+Groups are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different group endpoints you can use to manage groups programmatically. We'll look at how to query, create, update, and delete groups. {{ className: 'lead' }}
+
+## The group model
+
+The group model contains all the information about your groups, including what contacts are in the group and the group's name, description, and avatar.
+
+### Properties
+
+<Properties>
+  <Property name="sticky" type="boolean">
+    The default sticky behaviour for all navigations
+  </Property>
+  <Property name="request" type="Request">
+    The request for the router when using it as a controlled component
+  </Property>
+  <Property name="delayLoadingMs" type="integer">
+    The amount of milliseconds before navigations are marked as loading.
+  </Property>
+  <Property name="minimumLoadingMs" type="integer">
+    The amount of milliseconds a loading indicator should
+  </Property>
+  <Property name="defaultFormMethod" type="string">
+    Unique identifier for the conversation that belongs to the group.
+  </Property>
+  <Property name="transformFormData" type="function">
+    An array of contact objects that are members of the group.
+  </Property>
+  <Property name="onNavigate" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+  <Property name="onCancel" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+  <Property name="onNavigateStart" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+  <Property name="onError" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+  <Property name="onAborted" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+  <Property name="onNavigateEnd" type="timestamp">
+    Timestamp of when the group was created.
+  </Property>
+</Properties>
+
+---

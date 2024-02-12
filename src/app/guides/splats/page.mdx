@@ -1,0 +1,51 @@
+# Splats
+
+Splats in the route configuration can be used to match anything that follows.
+A splat is written as an asterisk and defines a placeholder for the rest of the url.
+It must be the last part of the url. Splats in the middle of a url are not allowed.
+
+```javascript
+let Router = Routes(
+	<Root>
+		<Files path="files/*">
+	</Root>,
+)
+```
+
+Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render these urls with the layout
+
+```javascript
+<Root>
+	<Files>
+</Root>
+```
+
+The splat will be accessible inside the route components with the [useSplat](/hooks/use-splat) hook.
+
+```javascript
+function Root() {
+	let splat = useSplat() // ['files', 'documents', 'reports', '2024', '05', '11']
+}
+```
+
+Only the parts of the url that are not specified in the configuration will be part of the splat.
+
+```javascript
+function Files() {
+	let splat = useSplat() // ['documents', 'reports', '2024', '05', '11']
+}
+```
+
+<Warning>
+	Defining splats for parent routes is not very useful, as they will match the rest of the url by default.
+	Only the deepest child routes need to specify the splat if they are interested in the rest of the url.
+
+    ```javascript
+    let Router = Routes(
+    	<Root path="/*">
+    		<Files path="files/*">
+    	</Root>,
+    )
+    ```
+
+</Warning>

@@ -1,0 +1,87 @@
+# Routes
+
+The routes in the routes configuration represent the user interface of your application.
+As most user interfaces are hierarchical in nature, so can the routes be nested to represent shared pieces of user interface.
+
+```javascript
+import Routes from 'react-sprout'
+
+import Root from './root.jsx'
+import Home from './home.jsx'
+import Admin from './admin.jsx'
+import Users from './users.jsx'
+import Posts from './posts.jsx'
+
+let Router = Routes(
+	<Root path="/">
+		<Home path="home" />
+		<Admin path="admin/">
+			<Users path="users" />
+			<Posts path="posts" />
+		</Admin>
+	</Root>,
+)
+```
+
+The Router will find a subset of routes to render by matching the url to the nested path properties.
+
+In this example the url `/admin/posts` would first match the path property `/` from the `Root` route, then `admin/` from the `Admin` route, and finally `posts` from the `Posts` route.
+
+The matched routes are `Root` > `Admin` > `Posts` and these form the layout the Router will use to render the page at `/admin/posts`. The Router will effectively render the filtered elements:
+
+```javascript
+<Root>
+	<Admin>
+		<Posts />
+	</Admin>
+</Root>
+```
+
+A route component can render its child route like any other react component would, by using `props.children`:
+
+```javascript
+function Admin(props) {
+	return (
+		<main>
+			<h1>Admin</h1>
+			<section>{props.children}</section>
+		</main>
+	)
+}
+```
+
+<hr />
+
+While each route in the previous example specified one segment of the url, this is not a requirement. A route does not need to add anything to the url, or it can specify multiple segments at once.
+
+```javascript
+let Router = Routes(
+	<Root path="/">
+		<Home />
+		<Admin path="admin/">
+			<Users path="users" />
+			<Posts path="content/posts" />
+		</Admin>
+	</Root>,
+)
+```
+
+- The `Home` route does not have a path property and will not add anything to the url, so will be rendered at `/`.
+- The `Posts` route adds 2 segments at once to the url, so it will be rendered at `/admin/content/posts`.
+
+<Note>
+	Remember that it is not the url that determines the nesting structure of your routes. You should not nest two routes within a common parent only because their urls have something in common.
+	They should be nested inside a common parent however, if both routes render the same piece of the user interface. And this parent should be responsible for rendering the shared part.
+
+    While `Users` and `Posts` can both be found at `/admin/`, if they do not have anything in common besides the `admin` part of the url, it is preferred to have a route configuration like this:
+
+    ```javascript
+    let Router = Routes(
+    	<Root path="/">
+    		<Users path="admin/users" />
+    		<Posts path="admin/posts" />
+    	</Root>,
+    )
+    ```
+
+</Note>

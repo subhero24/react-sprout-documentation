@@ -1,0 +1,40 @@
+absoute relative path properties
+trailing slashes
+
+There are no special rules for urls with a trailing `/`, if your url needs to end in a slash, just write them in the routes.
+This configuration will only a matching url for `/admin/users/`.
+
+```javascript
+let Router = Routes(
+	<Root path="/">
+		<Admin path="admin/">
+			<Users path="users/" />
+		</Admin>
+	</Root>,
+)
+```
+
+The trailing `/` in the path property of the `Admin` route is competely optional, as the router knows there must be a `/` between `admin` and `users` in the url.
+It thus can be omitted and we will do so for every parent route in the configuration from now on.
+
+```javascript
+let Router = Routes(
+	<Root path="/">
+		<Admin path="admin">
+			<Users path="users/" />
+		</Admin>
+	</Root>,
+)
+```
+
+Even the path property from the `Root` route is not necessary as matching will always start from the beginning of the url. So the idiomatic way of writing this config would be:
+
+```javascript
+let Router = Routes(
+	<Root>
+		<Admin path="admin">
+			<Users path="users/" />
+		</Admin>
+	</Root>,
+)
+```

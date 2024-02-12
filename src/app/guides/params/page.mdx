@@ -1,0 +1,36 @@
+# Params
+
+Parameters in the route configuration can be used to match urls with dynamic values.
+A parameter starts with a semicolon and defines a placeholder in the url for a value.
+
+```javascript
+let Router = Routes(
+	<Root path=":language">
+		<User path="users/:userId">
+	</Root>,
+)
+```
+
+Urls like `/en/users/1` and `/de/users/2` will both match the general form `/:language/users/:userId` and the router will render these urls with the layout
+
+```javascript
+<Root>
+	<User>
+</Root>
+```
+
+The parameter names as used in the configuration and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
+
+```javascript
+function Root() {
+	let { language } = useParams()
+}
+```
+
+Parameters of parent routes will also be included for each route component.
+
+```javascript
+function User() {
+	let { language, userId } = useParams()
+}
+```

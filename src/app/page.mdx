@@ -1,0 +1,68 @@
+import { Guides } from '@/components/Guides'
+import { Resources } from '@/components/Resources'
+import { HeroPattern } from '@/components/HeroPattern'
+
+export const metadata = {
+	title: 'React sprout',
+	description: 'Learn how to get started with the react-sprout router',
+}
+
+<HeroPattern />
+
+# React sprout
+
+React-sprout is a router for React.
+
+## Installation {{ anchor: false }}
+
+To get started, install the react-sprout package in to your application
+
+<CodeGroup>
+
+```bash
+npm install react-sprout
+```
+
+</CodeGroup>
+
+## Usage
+
+The default export from react-sprout is a function that creates a Router component from the provided routes.
+
+```javascript
+import Routes from 'react-sprout'
+
+import Home from './home.jsx'
+import Users from './users.jsx'
+
+let Router = Routes(
+	<>
+		<Home path="/home" />
+		<Users path="/users" />
+	</>,
+)
+```
+
+The result is a Router component that can be used anywhere in your application.
+
+```javascript
+function Application() {
+	return <Router />
+}
+```
+
+The Router will render the element of which the `path` property corresponds to the current url.
+
+In this case:
+
+- the url `/home` will make the router render `<Home />`
+- the url `/users` will make the router render `<Users />`
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/guides/routes" variant="text" arrow="right">
+		<>Tell me more about the route elements</>
+	</Button>
+	<Button href="/components/router" variant="text" arrow="right">
+		<>Tell me more about the Router element</>
+	</Button>
+</div>
