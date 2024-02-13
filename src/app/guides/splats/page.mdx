@@ -1,6 +1,6 @@
 # Splats
 
-Splats in the route configuration can be used to match anything.
+Splats can be used in the route configuration to match anything.
 It is a widcard written as an asterisk, and will match all the remaining segments of the url.
 
 ```javascript
@@ -33,7 +33,7 @@ function Files() {
 }
 ```
 
-Note that the splat is always availabe for every route component to inspect the remaining parts of the url. Even though in the configuration the splat is only on the deepest route.
+Note that the splat is always availabe for every route component to inspect the remaining parts of the url. Even though in the configuration the splat is only used on the deepest route.
 
 Also note that the splat is different for these route components. The `App` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `App` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.
 

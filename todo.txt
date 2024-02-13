@@ -1,0 +1,7 @@
+<CodeGroup>
+
+```bash
+npm install react-sprout
+```
+
+</CodeGroup>

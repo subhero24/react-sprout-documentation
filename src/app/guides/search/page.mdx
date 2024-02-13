@@ -1,0 +1,127 @@
+# Search
+
+<Note>
+
+The search string of a url is the part after the question mark `?` and consists of key-value pairs, called "search parameters" separated by `&` symbols.
+It allows you to add extra parameters to a url.
+
+</Note>
+
+The search string and/or search parameters can be found on the `location` object.
+
+To get the `location` object inside your components, there is a [useLocation](/hooks/use-location) hook.
+
+```javascript
+function Users() {
+	let location = useLocation()
+
+	let search = location.search
+	let searchParams = location.searchParams
+	...
+}
+```
+
+This api is almost identical to the native web platform apis. Check them out if they are not familiar.
+
+- [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL)
+- [Location](https://developer.mozilla.org/en-US/docs/Web/API/Location)
+- [SearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+
+<Warning>
+
+It is required to specify which search parameters a route component needs in the route configuration,
+Be default the search string and/or search parameters are not available in route components!
+
+</Warning>
+
+To specify search parameters for route components, the search string syntax for URLs is also used in the route configuration,
+
+```javascript
+let Router = Routes(
+	<App>
+		<Users path="users?filter" />
+	</App>,
+)
+
+function Users() {
+	let location = useLocation()
+
+	let filter = location.searchParams.get('filter')
+	...
+}
+```
+
+Or if the route needs multiple search parameters:
+
+```javascript
+let Router = Routes(
+	<App>
+		<Users path="users?order&filter" />
+	</App>,
+)
+
+function Users() {
+	let location = useLocation()
+
+	let order = location.searchParams.get('order')
+	let filter = location.searchParams.get('filter')
+	...
+}
+```
+
+If you want the full search query and all search parameters available in your route component:
+
+```javascript
+let Router = Routes(
+	<App>
+		<Users path="users?" />
+	</App>,
+)
+
+function Users() {
+	let location = useLocation()
+
+	let allSearchParams = location.searchParams
+	...
+}
+```
+
+<Warning>
+	Using all search parameters in a route component should be avoided as much as possible. 
+	Only use this if you do not know the names of your parameters in advance.
+	Explicitely stating the search parameters of your route is always preferred to using the general `?`. 
+	
+    When the route has explicit search parameter specified, the router knows it can skip reloading and rerendering
+    the route when other search parameters change their value.
+
+</Warning>
+
+### Matching with search parameters
+
+Search parameters can take part in the matching strategy of the routes.
+
+Specifying search parameters with assigned values will only match the corresponding route if the url also has the same search parameter with that value.
+
+```javascript
+let Router = Routes(
+	<App>
+		<Users path="users?filter" />
+		<Admins path="users?filter=admin" />
+	<App/>,
+)
+```
+
+If the url is `/users?filter=john` the router will render the `Users` route. If the url is `/users?filter=admin` the router will render the `Admins` route.
+
+The search parameter value can also be omitted if you want to match any value of the search parameters.
+
+```javascript
+let Router = Routes(
+	<App>
+		<Users path="users" />
+		<Search path="users?filter=" />
+	<App/>,
+)
+```
+
+When the `filter` search parameter is present, it will render the `Search` route. If not present, the `Users` route wil be rendered.

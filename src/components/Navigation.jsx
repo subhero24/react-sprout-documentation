@@ -199,7 +199,7 @@ export const navigation = [
 			{ title: 'Routes', href: '/guides/routes' },
 			{ title: 'Params', href: '/guides/params' },
 			{ title: 'Splats', href: '/guides/splats' },
-			{ title: 'Query strings', href: '/guides/query-strings' },
+			{ title: 'Search', href: '/guides/search' },
 			{ title: 'Navigation', href: '/guides/navigation' },
 			{ title: 'Links', href: '/guides/links' },
 			{ title: 'Loaders', href: '/guides/loaders' },
@@ -252,6 +252,10 @@ export const navigation = [
 			{ title: 'Breadcrumbs', href: '/examples/breadcrumbs' },
 			{ title: 'Optimistic ui', href: '/examples/optimistic-ui' },
 		],
+	},
+	{
+		title: 'Support',
+		links: [{ title: 'FAQ', href: '/faq' }],
 	},
 ]
 

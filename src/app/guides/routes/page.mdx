@@ -72,9 +72,10 @@ let Router = Routes(
 <hr />
 
 <Info>
-	Remember that it is not the url, but the user interface that determines the nesting structure of your routes. 
-	Routes that have no user interface in common should not be grouped under a common parent, even though their urls could be similar.
-
+	Try not to introduce unnecessary nesting in the structure of your routes. Only introduce a common parent route if the implementation
+	of that parent route component is more than just rendering the children. 
+	
+	It is not the url that determines the nesting structure of your routes.
     While `Users` and `Posts` can both be found at `/admin/`, if they do not have anything in common besides the `admin` part of the url, it is preferred to have a route configuration like this:
 
     ```javascript
