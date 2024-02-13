@@ -12,7 +12,7 @@ The search string and/or search parameters can be found on the `location` object
 To get the `location` object inside your components, there is a [useLocation](/hooks/use-location) hook.
 
 ```javascript
-function Users() {
+function Route() {
 	let location = useLocation()
 
 	let search = location.search
@@ -38,9 +38,9 @@ To specify search parameters for route components, the search string syntax for 
 
 ```javascript
 let Router = Routes(
-	<App>
+	<>
 		<Users path="users?filter" />
-	</App>,
+	</>,
 )
 
 function Users() {
@@ -55,9 +55,9 @@ Or if the route needs multiple search parameters:
 
 ```javascript
 let Router = Routes(
-	<App>
+	<>
 		<Users path="users?order&filter" />
-	</App>,
+	</>,
 )
 
 function Users() {
@@ -69,13 +69,13 @@ function Users() {
 }
 ```
 
-If you want the full search query and all search parameters available in your route component:
+Do not specify any search parameter if you want the full search query and all search parameters available in your route component:
 
 ```javascript
 let Router = Routes(
-	<App>
+	<>
 		<Users path="users?" />
-	</App>,
+	</>,
 )
 
 function Users() {
@@ -104,10 +104,10 @@ Specifying search parameters with assigned values will only match the correspond
 
 ```javascript
 let Router = Routes(
-	<App>
+	<>
 		<Users path="users?filter" />
 		<Admins path="users?filter=admin" />
-	<App/>,
+	</>,
 )
 ```
 
@@ -117,10 +117,10 @@ The search parameter value can also be omitted if you want to match any value of
 
 ```javascript
 let Router = Routes(
-	<App>
+	<>
 		<Users path="users" />
 		<Search path="users?filter=" />
-	<App/>,
+	</>,
 )
 ```
 
