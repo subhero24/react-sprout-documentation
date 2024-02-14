@@ -5,24 +5,24 @@ It is a widcard written as an asterisk, and will match all the remaining segment
 
 ```javascript
 let Router = Routes(
-	<App>
+	<Root>
 		<Files path="files/*">
-	</App>,
+	</Root>,
 )
 ```
 
 Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render both urls with this layout
 
 ```javascript
-<App>
+<Root>
 	<Files>
-</App>
+</Root>
 ```
 
 The splat will be accessible inside the route components with the [useSplat](/hooks/use-splat) hook.
 
 ```javascript
-function App() {
+function Root() {
 	let splat = useSplat() // ['files', 'documents', 'reports', '2024', '05', '11']
 		...
 }
@@ -35,11 +35,4 @@ function Files() {
 
 Note that the splat is always availabe for every route component to inspect the remaining parts of the url. Even though in the configuration the splat is only used on the deepest route.
 
-Also note that the splat is different for these route components. The `App` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `App` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.
-
-<Note>
-	Splats represent the remaining parts of the url, so they should almost always
-	be the last part in the path of the deepest child route! See the [Advanced
-	route paths](/guides/paths) guide for some extremely rare use cases that break
-	this rule.
-</Note>
+Also note that the splat is different for these route components. The `Root` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `Root` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.

@@ -1,0 +1,18 @@
+# Location
+
+All other information about the current URL besides splats and params can be found in the `location` object, which is accessible through the [useLocation](/hooks/use-location) hook.
+
+```javascript
+function Route() {
+	let location = useLocation()
+		...
+}
+```
+
+Location is an instance of [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL), so take a look at this native web platform api if you are not familiar.
+
+<Warning>
+
+The `search` and `searchParams` attributes of the location URL need some special treatment, as explained in the next guide.
+
+</Warning>

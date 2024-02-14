@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { useRef } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
-import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
+import { useRef } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 
-import { Button } from '@/components/Button'
-import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
-import { useSectionStore } from '@/components/SectionProvider'
-import { Tag } from '@/components/Tag'
-import { remToPx } from '@/lib/remToPx'
+import { Button } from '@/components/Button';
+import { useIsInsideMobileNavigation } from '@/components/MobileNavigation';
+import { useSectionStore } from '@/components/SectionProvider';
+import { Tag } from '@/components/Tag';
+import { remToPx } from '@/lib/remToPx';
 
 function useInitialValue(value, condition = true) {
-	let initialValue = useRef(value).current
-	return condition ? initialValue : value
+	let initialValue = useRef(value).current;
+	return condition ? initialValue : value;
 }
 
 function TopLevelNavItem({ href, children }) {
@@ -27,7 +27,7 @@ function TopLevelNavItem({ href, children }) {
 				{children}
 			</Link>
 		</li>
-	)
+	);
 }
 
 function NavLink({
@@ -56,7 +56,7 @@ function NavLink({
 				</Tag>
 			)}
 		</Link>
-	)
+	);
 }
 
 function VisibleSectionHighlight({ group, pathname }) {
@@ -66,23 +66,23 @@ function VisibleSectionHighlight({ group, pathname }) {
 			useSectionStore((s) => s.visibleSections),
 		],
 		useIsInsideMobileNavigation(),
-	)
+	);
 
-	let isPresent = useIsPresent()
+	let isPresent = useIsPresent();
 	let firstVisibleSectionIndex = Math.max(
 		0,
 		[{ id: '_top' }, ...sections].findIndex(
 			(section) => section.id === visibleSections[0],
 		),
-	)
+	);
 
-	let itemHeight = remToPx(2)
+	let itemHeight = remToPx(2);
 	let height = isPresent
 		? Math.max(1, visibleSections.length) * itemHeight
-		: itemHeight
+		: itemHeight;
 	let top =
 		group.links.findIndex((link) => link.href === pathname) * itemHeight +
-		firstVisibleSectionIndex * itemHeight
+		firstVisibleSectionIndex * itemHeight;
 
 	return (
 		<motion.div
@@ -93,14 +93,14 @@ function VisibleSectionHighlight({ group, pathname }) {
 			className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"
 			style={{ borderRadius: 8, height, top }}
 		/>
-	)
+	);
 }
 
 function ActivePageMarker({ group, pathname }) {
-	let itemHeight = remToPx(2)
-	let offset = remToPx(0.25)
-	let activePageIndex = group.links.findIndex((link) => link.href === pathname)
-	let top = offset + activePageIndex * itemHeight
+	let itemHeight = remToPx(2);
+	let offset = remToPx(0.25);
+	let activePageIndex = group.links.findIndex((link) => link.href === pathname);
+	let top = offset + activePageIndex * itemHeight;
 
 	return (
 		<motion.div
@@ -111,21 +111,21 @@ function ActivePageMarker({ group, pathname }) {
 			exit={{ opacity: 0 }}
 			style={{ top }}
 		/>
-	)
+	);
 }
 
 function NavigationGroup({ group, className }) {
 	// If this is the mobile navigation then we always render the initial
 	// state, so that the state does not change during the close animation.
 	// The state will still update when we re-open (re-render) the navigation.
-	let isInsideMobileNavigation = useIsInsideMobileNavigation()
+	let isInsideMobileNavigation = useIsInsideMobileNavigation();
 	let [pathname, sections] = useInitialValue(
 		[usePathname(), useSectionStore((s) => s.sections)],
 		isInsideMobileNavigation,
-	)
+	);
 
 	let isActiveGroup =
-		group.links.findIndex((link) => link.href === pathname) !== -1
+		group.links.findIndex((link) => link.href === pathname) !== -1;
 
 	return (
 		<li className={clsx('relative mt-6', className)}>
@@ -189,7 +189,7 @@ function NavigationGroup({ group, className }) {
 				</ul>
 			</div>
 		</li>
-	)
+	);
 }
 
 export const navigation = [
@@ -199,6 +199,7 @@ export const navigation = [
 			{ title: 'Routes', href: '/guides/routes' },
 			{ title: 'Params', href: '/guides/params' },
 			{ title: 'Splats', href: '/guides/splats' },
+			{ title: 'Location', href: '/guides/location' },
 			{ title: 'Search', href: '/guides/search' },
 			{ title: 'Links', href: '/guides/links' },
 			{ title: 'Forms', href: '/guides/forms' },
@@ -258,7 +259,7 @@ export const navigation = [
 		title: 'Support',
 		links: [{ title: 'FAQ', href: '/faq' }],
 	},
-]
+];
 
 export function Navigation(props) {
 	return (
@@ -278,5 +279,5 @@ export function Navigation(props) {
 				</li>
 			</ul>
 		</nav>
-	)
+	);
 }

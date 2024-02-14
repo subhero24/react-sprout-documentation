@@ -7,9 +7,7 @@ It allows you to add extra parameters to a url.
 
 </Note>
 
-The search string and/or search parameters can be found on the `location` object.
-
-To get the `location` object inside your components, there is a [useLocation](/hooks/use-location) hook.
+The search and searchParams are attributes of the `location` [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL).
 
 ```javascript
 function Route() {
@@ -17,47 +15,47 @@ function Route() {
 
 	let search = location.search
 	let searchParams = location.searchParams
-	...
+		...
 }
 ```
 
-This api is almost identical to the native web platform apis. Check them out if they are not familiar.
-
-- [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL)
-- [Location](https://developer.mozilla.org/en-US/docs/Web/API/Location)
-- [SearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+SearchParams is an instance of [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), so take a look at this native web platform api if you are not familiar.
 
 <Warning>
 
-It is required to specify which search parameters a route component needs in the route configuration,
-Be default the search string and/or search parameters are not available in route components!
+It is required to specify the search parameters for each route in the routes configuration!
+Search parameters that are not specified in the routes configuration are not accessible to route components!
 
 </Warning>
 
-To specify search parameters for route components, the search string syntax for URLs is also used in the route configuration,
+<hr />
+
+To specify search parameters for route components, the same search string syntax as for urls is used in the routes configuration:
 
 ```javascript
 let Router = Routes(
-	<>
+	<Root>
 		<Users path="users?filter" />
-	</>,
+	</Root>,
 )
 
 function Users() {
 	let location = useLocation()
 
 	let filter = location.searchParams.get('filter')
-	...
+		...
 }
 ```
+
+Note the `?filter` in the path of the `Users` route. It allows the `Users` route component to access the `filter` search parameter of the url.
 
 Or if the route needs multiple search parameters:
 
 ```javascript
 let Router = Routes(
-	<>
+	<Root>
 		<Users path="users?order&filter" />
-	</>,
+	</Root>,
 )
 
 function Users() {
@@ -65,36 +63,61 @@ function Users() {
 
 	let order = location.searchParams.get('order')
 	let filter = location.searchParams.get('filter')
-	...
+		...
 }
 ```
 
-Do not specify any search parameter if you want the full search query and all search parameters available in your route component:
+You can get all the search parameters in your route component if you do not specify any specific search parameters at all.
 
 ```javascript
 let Router = Routes(
-	<>
+	<Root>
 		<Users path="users?" />
-	</>,
+	</Root>,
 )
 
 function Users() {
 	let location = useLocation()
 
 	let allSearchParams = location.searchParams
-	...
+		...
 }
 ```
 
 <Warning>
-	Using all search parameters in a route component should be avoided as much as possible. 
-	Only use this if you do not know the names of your parameters in advance.
-	Explicitely stating the search parameters of your route is always preferred to using the general `?`. 
-	
-    When the route has explicit search parameter specified, the router knows it can skip reloading and rerendering
-    the route when other search parameters change their value.
-
+	Using all search parameters in a route component should be avoided as much as
+	possible. Only use this if you do not know the names of your parameters in
+	advance. Explicitely stating the search parameters of your route like
+	`/users?order&filter` is always preferred to using the general `/users?`.
 </Warning>
+
+<hr />
+
+<Info>
+	The requirement to specify the search parameters dependencies explicitely in the routes configuration has a lot of advantages.
+	It allows the search parameters to take part in the route matching strategy, which is explained further in this guide.
+	It also allows the router to optimize data loading (read more about data loading in the [loaders guide](/guides/loaders)).
+		
+	```javascript
+	let Router = Routes(
+		<Root path="/?language">
+			<Users path="users?filter" />
+		</Root>,
+	)
+    ```
+
+    When the url changes from `/users?language=fr&filter=john` to `/users?language=en&filter=john` only the `language` search parameter has changed.
+    The `Root` route depends on the value of the `language` search parameter, and its data will have to be reloaded.
+    The `Users` route however does not depend on the value of the `language` search parameter, and its data will not have to be reloaded.
+    Skipping these unneeded data reloads yields a substantial page load improvement.
+
+
+    This explains why using a path like `/users?` is not recommended. The data of this route has to be reloaded with every search parameter change,
+    even if the search parameter was irrelevant for the route component.
+
+</Info>
+
+<hr />
 
 ### Matching with search parameters
 
@@ -104,24 +127,24 @@ Specifying search parameters with assigned values will only match the correspond
 
 ```javascript
 let Router = Routes(
-	<>
+	<Root>
 		<Users path="users?filter" />
 		<Admins path="users?filter=admin" />
-	</>,
-)
+	</Root>,
+);
 ```
 
-If the url is `/users?filter=john` the router will render the `Users` route. If the url is `/users?filter=admin` the router will render the `Admins` route.
+If the url is `/users` or `/users?filter=john` the router will render the `Users` route. If the url is `/users?filter=admin` the router will render the `Admins` route.
 
-The search parameter value can also be omitted if you want to match any value of the search parameters.
+The search parameter value can also be omitted if you want to allow any value, matching only when the search parameter is present, whatever its value.
 
 ```javascript
 let Router = Routes(
-	<>
+	<Root>
 		<Users path="users" />
-		<Search path="users?filter=" />
-	</>,
-)
+		<Filter path="users?filter=" />
+	</Root>,
+);
 ```
 
-When the `filter` search parameter is present, it will render the `Search` route. If not present, the `Users` route wil be rendered.
+When the `filter` search parameter is present, it will render the `Filter` route. If not, the `Users` route wil be rendered.

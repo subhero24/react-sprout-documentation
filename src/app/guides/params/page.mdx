@@ -5,24 +5,24 @@ A parameter starts with a colon and defines a placeholder in the url for a value
 
 ```javascript
 let Router = Routes(
-	<App path=":language">
+	<Root path=":language">
 		<User path="users/:userId">
-	</App>,
+	</Root>,
 )
 ```
 
-Urls like `/en/users/1` and `/es/users/42` will both match the general form `/:language/users/:userId` and the router will render both urls with this layout
+Urls like `/en/users/1` and `/fr/users/42` will both match the general form `/:language/users/:userId` and the router will render both urls with this layout
 
 ```javascript
-<App>
+<Root>
 	<User>
-</App>
+</Root>
 ```
 
 The parameter names, as defined in the configuration, and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
 
 ```javascript
-function App() {
+function Root() {
 	let { language } = useParams()
 		...
 }
