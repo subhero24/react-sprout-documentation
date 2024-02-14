@@ -11,7 +11,7 @@ let Router = Routes(
 )
 ```
 
-Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render both urls urls with this layout
+Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11` will match the general form `/files/*` and the router will render both urls with this layout
 
 ```javascript
 <App>
@@ -37,19 +37,9 @@ Note that the splat is always availabe for every route component to inspect the 
 
 Also note that the splat is different for these route components. The `App` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `App` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.
 
-<Warning>
-    Be careful with defining splats for parent routes.
-
-    ```javascript
-    let Router = Routes(
-    	<Admin path="admin/*">
-    		<Users path="users">
-    	</Admin>,
-    )
-    ```
-
-    This configuration will never match anything. There is no segment `users` after the `Admin` route has consumed all the remaining parts of the url.
-
-    Splats should almost always be the last part of the path of the deepest child route! There are some extremely rare use cases that break this rule and they are documented in the [Advanced route paths](/guides/paths) guide.
-
-</Warning>
+<Note>
+	Splats represent the remaining parts of the url, so they should almost always
+	be the last part in the path of the deepest child route! See the [Advanced
+	route paths](/guides/paths) guide for some extremely rare use cases that break
+	this rule.
+</Note>

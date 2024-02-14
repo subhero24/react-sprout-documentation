@@ -15,7 +15,7 @@ import Posts from './posts.jsx'
 let Router = Routes(
 	<Root path="/">
 		<Home path="home" />
-		<Admin path="admin/">
+		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="posts" />
 		</Admin>
@@ -25,7 +25,7 @@ let Router = Routes(
 
 The Router will find a subset of routes to render by matching the url to the nested path properties.
 
-In this example the url `/admin/posts` would first match the path property `/` from the `Root` route, then `admin/` from the `Admin` route, and finally `posts` from the `Posts` route.
+In this example the url `/admin/posts` would first match the path property `/` from the `Root` route, then `admin` from the `Admin` route, and finally `posts` from the `Posts` route.
 
 The matched routes are `Root` > `Admin` > `Posts` and these form the layout the Router will use to render the page at `/admin/posts`. The Router will effectively render the filtered elements:
 
@@ -52,13 +52,13 @@ function Admin(props) {
 
 <hr />
 
-While each route in the previous example specified one segment of the url, this is not a requirement. A route does not need to add anything to the url, or it can specify multiple url segments at once.
+While each route in the previous example specified exactly one segment of the url, this is not a requirement. A route does not need to add anything to the url, or it can specify multiple url segments at once.
 
 ```javascript
 let Router = Routes(
 	<Root path="/">
 		<Home />
-		<Admin path="admin/">
+		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="content/posts" />
 		</Admin>
