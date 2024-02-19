@@ -211,6 +211,7 @@ export const navigation = [
 		links: [
 			{ title: 'Route paths', href: '/guides/paths' },
 			{ title: 'Loading states', href: '/guides/loading-states' },
+			{ title: 'FormData', href: '/guides/form-data' },
 			{ title: 'Sticky navigation', href: '/guides/ssr' },
 			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Server routes', href: '/guides/server' },
