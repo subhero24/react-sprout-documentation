@@ -22,6 +22,8 @@ Urls like `/en/users/1` and `/fr/users/42` will both match the general form `/:l
 The parameter names, as defined in the configuration, and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
 
 ```javascript
+import { useParams } from 'react-sprout'
+
 function Root() {
 	let { language } = useParams()
 		...
@@ -31,6 +33,8 @@ function Root() {
 Each route component also has access to the parameters of parent routes.
 
 ```javascript
+import { useParams } from 'react-sprout'
+
 function User() {
 	let { language, userId } = useParams()
 		...

@@ -1,0 +1,113 @@
+# Loaders
+
+Each route in the routes configuration can provide a loader to provide the route component with data.
+
+```javascript
+function usersLoader() {
+	return [
+		{ id: 1, name: 'John' },
+		{ id: 2, name: 'Peter' },
+	];
+}
+
+let Router = Routes(
+	<>
+		<Users path="users" loader={usersLoader} />
+	</>,
+);
+```
+
+In the route component, the data can be used with the [useLoaderResult](/hooks/use-loader-result) hook.
+
+```javascript
+function Users() {
+	let users = useLoaderResult()
+		...
+}
+```
+
+More commonly the loader would fetch data from some backend api or service:
+
+```javascript
+async function usersLoader() {
+	let response = await fetch('/api/users.json');
+	let users = await response.json();
+
+	return users;
+}
+```
+
+The loaders have access to the url, splat, and params if you need them.
+
+```javascript
+let Router = Routes(
+	<>
+		<User path="users/:userId" loader={userLoader} />
+	</>,
+);
+
+async function userLoader({ url, splat, params }) {
+	let response = await fetch(`/api/users/${params.userId}`);
+	let user = await response.json();
+
+	return user;
+}
+```
+
+### Suspense
+
+When the loader is busy, `useLoaderResult` will suspend your component.
+Use react suspense boundaries somewhere up in the component tree to display a fallback user interface, like a loading indicator.
+
+```javascript
+let Router = Routes(
+	<Root>
+		<User path="users/:userId" loader={userLoader} />
+	</Root>,
+);
+
+function Root(props) {
+	return <Suspense fallback="loading...">{props.children}</Suspense>;
+}
+
+function User() {
+	let user = useLoaderResult();
+		...
+}
+```
+
+### Errors
+
+When the loader has errored, `useLoaderResult` will throw the error during render.
+Use react error boundaries somwhere up in the component tree to display an error handling user interface.
+
+```javascript
+let Router = Routes(
+	<Root>
+		<User path="users/:userId" loader={userLoader} />
+	</Root>,
+);
+
+function Root(props) {
+	return <ErrorBoundary>{props.children}</ErrorBoundary>;
+}
+
+function User() {
+	let user = useLoaderResult();
+		...
+}
+
+class ErrorBoundary extends React.Component {
+	static getDerivedStateFromError(error) {
+		return { error }
+	}
+
+	render() {
+		if (this.state.error) {
+			return "Something went wrong";
+		}
+
+		return this.props.children;
+	}
+}
+```

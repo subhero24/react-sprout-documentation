@@ -22,6 +22,8 @@ Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11`
 The splat will be accessible inside the route components with the [useSplat](/hooks/use-splat) hook.
 
 ```javascript
+import { useSplat } from 'react-sprout'
+
 function Root() {
 	let splat = useSplat() // ['files', 'documents', 'reports', '2024', '05', '11']
 		...

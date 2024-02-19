@@ -200,19 +200,19 @@ export const navigation = [
 			{ title: 'Params', href: '/guides/params' },
 			{ title: 'Splats', href: '/guides/splats' },
 			{ title: 'Location', href: '/guides/location' },
-			{ title: 'Search', href: '/guides/search' },
-			{ title: 'Links', href: '/guides/links' },
-			{ title: 'Forms', href: '/guides/forms' },
-			{ title: 'Navigate', href: '/guides/Navigate' },
+			{ title: 'Navigation', href: '/guides/navigation' },
 			{ title: 'Loaders', href: '/guides/loaders' },
 			{ title: 'Actions', href: '/guides/actions' },
-			{ title: 'Errors', href: '/guides/errors' },
+			{ title: 'Search', href: '/guides/search' },
 		],
 	},
 	{
 		title: 'Advanced guides',
 		links: [
 			{ title: 'Route paths', href: '/guides/paths' },
+			{ title: 'Loading states', href: '/guides/loading-states' },
+			{ title: 'Sticky navigation', href: '/guides/ssr' },
+			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Server routes', href: '/guides/server' },
 			{ title: 'Server rendering', href: '/guides/ssr' },
 		],
@@ -252,6 +252,7 @@ export const navigation = [
 		links: [
 			{ title: 'Authentication', href: '/examples/authentication' },
 			{ title: 'Breadcrumbs', href: '/examples/breadcrumbs' },
+			{ title: 'Loading states', href: '/examples/loading-states' },
 			{ title: 'Optimistic ui', href: '/examples/optimistic-ui' },
 		],
 	},
@@ -272,11 +273,11 @@ export function Navigation(props) {
 						className={groupIndex === 0 ? 'md:mt-0' : ''}
 					/>
 				))}
-				<li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
+				{/* <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
 					<Button href="#" variant="filled" className="w-full">
 						Sign in
 					</Button>
-				</li>
+				</li> */}
 			</ul>
 		</nav>
 	);

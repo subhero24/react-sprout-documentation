@@ -1,1 +1,111 @@
-## sticky
+# Navigation
+
+## Links {{ anchor: false }}
+
+Links are an alternative for the default [anchor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element.
+
+```javascript
+import { Link } from 'react-sprout';
+
+function Component() {
+	return <Link href="/some/url">navigate</Link>;
+}
+```
+
+If you need the loading state for a Link, there is a [useLink](/hooks/use-link) hook
+
+```javascript
+import { useLink } from 'react-sprout';
+
+function Component() {
+	let [Link, busy, loading, navigations] = useLink();
+
+	return <Link href="/some/url">navigate</Link>;
+}
+```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/components/link" variant="text" arrow="right">
+		<>Tell me more about the Link element</>
+	</Button>
+	<Button href="/guides/loading-states" variant="text" arrow="right">
+		<>Tell me more about the loading states of a navigation</>
+	</Button>
+</div>
+
+## Forms {{ anchor: false }}
+
+Forms are an alternative for the default [form](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) element.
+
+```javascript
+import { Form } from 'react-sprout';
+
+function Component() {
+	return (
+		<Form action="/some/url">
+			<button>navigate</button>
+		</Form>
+	);
+}
+```
+
+If you need the loading state for a Form, there is a [useForm](/hooks/use-form) hook
+
+```javascript
+import { useForm } from 'react-sprout';
+
+function Component() {
+	let [Form, busy, loading, navigations] = useForm();
+
+	return (
+		<Form action="/some/url">
+			<button>navigate</button>
+		</Form>
+	);
+}
+```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/components/form" variant="text" arrow="right">
+		<>Tell me more about the Form element</>
+	</Button>
+	<Button href="/guides/loading-states" variant="text" arrow="right">
+		<>Tell me more about the loading states of a navigation</>
+	</Button>
+</div>
+
+## Navigate {{ anchor: false }}
+
+For navigating programmatically, there is a [useNavigate](/hooks/use-navigate) hook.
+
+<Info>
+	If you need to navigate as a response to a user click, using a Link or Form is
+	preferred.
+</Info>
+
+```javascript
+import { useNavigate } from 'react-sprout';
+
+function Component() {
+	let [navigate, busy, loading, navigations] = useNavigate();
+
+	useEffect(() => {
+		let timer = setTimeout(() => {
+			navigate('/');
+		}, 5000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, []);
+}
+```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/hooks/use-navigate" variant="text" arrow="right">
+		<>Tell me more about the useNavigate hook</>
+	</Button>
+	<Button href="/guides/loading-states" variant="text" arrow="right">
+		<>Tell me more about the loading states of a navigation</>
+	</Button>
+</div>

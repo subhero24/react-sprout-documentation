@@ -4,30 +4,29 @@ The routes in the routes configuration represent the user interface of your appl
 As most user interfaces are hierarchical in nature, so can the routes be nested to represent shared pieces of user interface.
 
 ```javascript
-import Routes from 'react-sprout'
+import Routes from 'react-sprout';
 
-import Root from './root.jsx'
-import Home from './home.jsx'
-import Admin from './admin.jsx'
-import Users from './users.jsx'
-import Posts from './posts.jsx'
+import Root from './root.jsx';
+import Home from './home.jsx';
+import Admin from './admin.jsx';
+import Users from './users.jsx';
+import Posts from './posts.jsx';
 
 let Router = Routes(
-	<Root path="/">
+	<Root path="app">
 		<Home path="home" />
 		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="posts" />
 		</Admin>
 	</Root>,
-)
+);
 ```
 
-The Router will find a subset of routes to render by matching the url to the nested path properties.
+The `Router` element will progressively match segments from the current url to the nested path properties of the routes to figure out what to render.
 
-In this example the url `/admin/posts` would first match the path property `/` from the `Root` route, then `admin` from the `Admin` route, and finally `posts` from the `Posts` route.
-
-The matched routes are `Root` > `Admin` > `Posts` and these form the layout the Router will use to render the page at `/admin/posts`. The Router will effectively render the filtered elements:
+The url `/app/admin/posts` for example has three segments; `app`, `admin` and `posts` which will respectively match the paths of the `Root`, `Admin`, and `Posts` routes.
+These matched routes form the element structure for the page at this url.
 
 ```javascript
 <Root>
@@ -46,9 +45,29 @@ function Admin(props) {
 			<h1>Admin</h1>
 			<section>{props.children}</section>
 		</main>
-	)
+	);
 }
 ```
+
+<Info>
+	Note that there is no page at `/app/admin`, as the url matching keeps going until there are no chid routes left to match.
+
+    If you also wanted a page at `/app/admin`, the routes configuration would look like this
+
+    ```javascript
+    let Router = Routes(
+    	<Root path="app">
+    		<Home path="home" />
+    		<Admin path="admin" />
+    		<AdminLayout path="admin">
+    			<Users path="users" />
+    			<Posts path="posts" />
+    		</AdminLayout>
+    	</Root>,
+    );
+    ```
+
+</Info>
 
 <hr />
 
@@ -56,36 +75,35 @@ While each route in the previous example specified exactly one segment of the ur
 
 ```javascript
 let Router = Routes(
-	<Root path="/">
+	<Root path="app">
 		<Home />
 		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="content/posts" />
 		</Admin>
 	</Root>,
-)
+);
 ```
 
-- The `Home` route does not have a path property and will not add anything to the url, so will be rendered at `/`.
-- The `Posts` route adds 2 url segments at once to the url, it will be rendered at `/admin/content/posts`.
+- The `Home` route does not have a path property and will not add anything to the url, so will be rendered at `/app`.
+- The `Posts` route adds 2 url segments at once to the url, it will be rendered at `/app/admin/content/posts`.
 
 <hr />
 
 <Info>
-	Try not to introduce unnecessary nesting in the structure of your routes. Only introduce a common parent route if the implementation
-	of that parent route component is more than just rendering the children. 
-	
-	It is not the url that determines the nesting structure of your routes.
-    While `Users` and `Posts` can both be found at `/admin/`, if they do not have anything in common besides the `admin` part of the url, it is preferred to have a route configuration like this:
+	If the `Admin` route does not render anything but `props.children`, it is not necessary to group `Users` and `Posts`.
+	This is also a viable route configuration:
 
     ```javascript
     let Router = Routes(
-    	<Root path="/">
+    	<Root>
     		<Home />
     		<Users path="admin/users" />
-    		<Posts path="admin/posts" />
+    		<Posts path="admin/content/posts" />
     	</Root>,
     )
     ```
+
+    You should however always group multiple routes if there is a shared piece of user interface. And let the parent take care of rendering that shared part of the user interface.
 
 </Info>
