@@ -53,7 +53,7 @@ When the action is completed successfully, the router will start navigation to t
 
 Most likely there will be more than one different type of action that will navigate to a route.
 Deleting a todo for example should maybe also show the `/todos` overview after the todo is deleted.
-To differentiate between different actions you could add a seperate form field to specify the action's intent.
+To differentiate between different actions you should add a seperate form field to specify the action's intent.
 
 ```javascript
 let Router = Routes(
@@ -221,6 +221,6 @@ function CreateTodo() {
 
 <div className="not-prose flex flex-col items-start">
 	<Button href="/guides/callbacks" variant="text" arrow="right">
-		<>Tell me more about navigation callbacks</>
+		<>Tell me more about the navigation callbacks</>
 	</Button>
 </div>

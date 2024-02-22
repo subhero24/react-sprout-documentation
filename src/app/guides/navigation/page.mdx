@@ -7,7 +7,7 @@ The `Link` component is a more powerful alternative for the default [anchor](htt
 ```javascript
 import { Link } from 'react-sprout';
 
-function Component() {
+function Route() {
 	return <Link href="/some/url">navigate</Link>;
 }
 ```
@@ -17,7 +17,7 @@ If you need a `Link` with navigation information and loading states, there is a 
 ```javascript
 import { useLink } from 'react-sprout';
 
-function Component() {
+function Route() {
 	let [Link, busy, loading, navigations] = useLink();
 
 	return <Link href="/some/url">navigate</Link>;
@@ -40,7 +40,7 @@ The `Form` component is a more powerful alternative for the default [form](https
 ```javascript
 import { Form } from 'react-sprout';
 
-function Component() {
+function Route() {
 	return (
 		<Form action="/some/url">
 			<button>navigate</button>
@@ -54,7 +54,7 @@ If you need a `Form` with navigation information and loading states, there is a 
 ```javascript
 import { useForm } from 'react-sprout';
 
-function Component() {
+function Route() {
 	let [Form, busy, loading, navigations] = useForm();
 
 	return (
@@ -78,15 +78,10 @@ function Component() {
 
 For navigating programmatically, there is a [useNavigate](/hooks/use-navigate) hook.
 
-<Info>
-	If you need to navigate as a response to a user click, using a Link or Form is
-	preferred.
-</Info>
-
 ```javascript
 import { useNavigate } from 'react-sprout';
 
-function Component() {
+function Route() {
 	let [navigate, busy, loading, navigations] = useNavigate();
 
 	useEffect(() => {
@@ -100,6 +95,11 @@ function Component() {
 	}, []);
 }
 ```
+
+<Info>
+	If you need to navigate as a response to a user click, using a Link or Form is
+	preferred.
+</Info>
 
 <div className="not-prose flex flex-col items-start">
 	<Button href="/hooks/use-navigate" variant="text" arrow="right">
