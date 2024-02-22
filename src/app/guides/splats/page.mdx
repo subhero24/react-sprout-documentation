@@ -6,7 +6,7 @@ It is a widcard written as an asterisk, and will match all the remaining segment
 ```javascript
 let Router = Routes(
 	<Root>
-		<Files path="files/*">
+		<File path="files/*">
 	</Root>,
 )
 ```
@@ -15,7 +15,7 @@ Urls like `/files/images/image-001.jpg` or `/files/documents/reports/2024/05/11`
 
 ```javascript
 <Root>
-	<Files>
+	<File>
 </Root>
 ```
 
@@ -29,7 +29,7 @@ function Root() {
 		...
 }
 
-function Files() {
+function File() {
 	let splat = useSplat() // ['documents', 'reports', '2024', '05', '11']
 		...
 }
@@ -37,4 +37,4 @@ function Files() {
 
 Note that the splat is always availabe for every route component to inspect the remaining parts of the url. Even though in the configuration the splat is only used on the deepest route.
 
-Also note that the splat is different for these route components. The `Root` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `Root` component. The `Files` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `Files` component.
+Also note that the splat is different for these route components. The `Root` route did not define any url segments, so everything in the url is regarded as the rest of the url, and will show up in the splat of the `Root` component. The `File` route did define `files` as part of the url before the splat, so that will not be included in the rest of the url, and will not show up in the splat of the `File` component.

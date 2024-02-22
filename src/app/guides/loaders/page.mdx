@@ -3,16 +3,16 @@
 Each route in the routes configuration can provide a loader to provide the route component with data.
 
 ```javascript
-function usersLoader() {
+function todosLoader() {
 	return [
-		{ id: 1, name: 'John' },
-		{ id: 2, name: 'Peter' },
+		{ id: 1, title: 'cleaning' },
+		{ id: 2, title: 'shopping' },
 	];
 }
 
 let Router = Routes(
 	<>
-		<Users path="users" loader={usersLoader} />
+		<Todos path="todos" loader={todosLoader} />
 	</>,
 );
 ```
@@ -20,8 +20,8 @@ let Router = Routes(
 In the route component, the data can be used with the [useLoaderResult](/hooks/use-loader-result) hook.
 
 ```javascript
-function Users() {
-	let users = useLoaderResult()
+function Todos() {
+	let todos = useLoaderResult()
 		...
 }
 ```
@@ -29,25 +29,25 @@ function Users() {
 More commonly the loader would fetch data from some backend api or service:
 
 ```javascript
-async function usersLoader() {
-	let response = await fetch('/api/users.json');
-	let users = await response.json();
+async function todosLoader() {
+	let response = await fetch('/api/todos.json');
+	let todos = await response.json();
 
-	return users;
+	return todos;
 }
 ```
 
-The loaders have access to the url, splat, and params if you need them.
+The loaders have access to the request, splat, and params if you need them.
 
 ```javascript
 let Router = Routes(
 	<>
-		<User path="users/:userId" loader={userLoader} />
+		<Todo path="todos/:todoId" loader={todoLoader} />
 	</>,
 );
 
-async function userLoader({ url, splat, params }) {
-	let response = await fetch(`/api/users/${params.userId}`);
+async function todoLoader({ request, splat, params }) {
+	let response = await fetch(`/api/todos/${params.todoId}`);
 	let user = await response.json();
 
 	return user;
@@ -56,13 +56,13 @@ async function userLoader({ url, splat, params }) {
 
 ### Suspense
 
-When the loader is busy, `useLoaderResult` will suspend your component.
+While the loader is busy, `useLoaderResult` will suspend your component.
 Use react suspense boundaries somewhere up in the component tree to display a fallback user interface, like a loading indicator.
 
 ```javascript
 let Router = Routes(
 	<Root>
-		<User path="users/:userId" loader={userLoader} />
+		<Todo path="todos/:todoId" loader={todoLoader} />
 	</Root>,
 );
 
@@ -70,7 +70,7 @@ function Root(props) {
 	return <Suspense fallback="loading...">{props.children}</Suspense>;
 }
 
-function User() {
+function Todo() {
 	let user = useLoaderResult();
 		...
 }
@@ -78,13 +78,13 @@ function User() {
 
 ### Errors
 
-When the loader has errored, `useLoaderResult` will throw the error during render.
+When the loader has thrown an error, `useLoaderResult` will throw the error during render.
 Use react error boundaries somwhere up in the component tree to display an error handling user interface.
 
 ```javascript
 let Router = Routes(
 	<Root>
-		<User path="users/:userId" loader={userLoader} />
+		<Todo path="todos/:todoId" loader={todoLoader} />
 	</Root>,
 );
 
@@ -92,7 +92,7 @@ function Root(props) {
 	return <ErrorBoundary>{props.children}</ErrorBoundary>;
 }
 
-function User() {
+function Todo() {
 	let user = useLoaderResult();
 		...
 }

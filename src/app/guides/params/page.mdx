@@ -6,16 +6,16 @@ A parameter starts with a colon and defines a placeholder in the url for a value
 ```javascript
 let Router = Routes(
 	<Root path=":language">
-		<User path="users/:userId">
+		<Todo path="todos/:todoId">
 	</Root>,
 )
 ```
 
-Urls like `/en/users/1` and `/fr/users/42` will both match the general form `/:language/users/:userId` and the router will render both urls with this layout
+Urls like `/en/todos/1` and `/fr/todos/42` will both match the general form `/:language/todos/:todoId` and the router will render both urls with this layout
 
 ```javascript
 <Root>
-	<User>
+	<Todo>
 </Root>
 ```
 
@@ -35,8 +35,8 @@ Each route component also has access to the parameters of parent routes.
 ```javascript
 import { useParams } from 'react-sprout'
 
-function User() {
-	let { language, userId } = useParams()
+function Todo() {
+	let { language, todoId } = useParams()
 		...
 }
 ```

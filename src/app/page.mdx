@@ -1,11 +1,11 @@
-import { Guides } from '@/components/Guides'
-import { Resources } from '@/components/Resources'
-import { HeroPattern } from '@/components/HeroPattern'
+import { Guides } from '@/components/Guides';
+import { Resources } from '@/components/Resources';
+import { HeroPattern } from '@/components/HeroPattern';
 
 export const metadata = {
 	title: 'React sprout',
 	description: 'Learn how to get started with the react-sprout router',
-}
+};
 
 <HeroPattern />
 
@@ -22,24 +22,24 @@ To get started, install the react-sprout package in to your application
 The default export from react-sprout is a function that creates a Router component from a router configuration.
 
 ```javascript
-import Routes from 'react-sprout'
+import Routes from 'react-sprout';
 
-import Home from './home.jsx'
-import Users from './users.jsx'
+import Home from './home.jsx';
+import Todos from './todos.jsx';
 
 let Router = Routes(
 	<>
 		<Home path="home" />
-		<Users path="users" />
+		<Todos path="todos" />
 	</>,
-)
+);
 ```
 
 The result is a Router component that can be used anywhere in your application.
 
 ```javascript
 function Application() {
-	return <Router />
+	return <Router />;
 }
 ```
 
@@ -48,7 +48,7 @@ The Router will render the element of which the `path` property corresponds to t
 In this case:
 
 - the url `/home` will make the router render `<Home />`
-- the url `/users` will make the router render `<Users />`
+- the url `/todos` will make the router render `<Todos />`
 
 <div className="not-prose flex flex-col items-start">
 	<Button href="/guides/routes" variant="text" arrow="right">

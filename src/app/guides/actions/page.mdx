@@ -1,0 +1,226 @@
+# Actions
+
+Actions are used to enable data mutations. The idiomatic way to submit data for data mutations is doing a POST navigation using a Form element.
+
+```javascript
+import Routes, { Form } from 'react-sprout'
+
+let Router = Routes(
+	<Root>
+		<Todos path="todos" />
+		<CreateTodo path="todos/create" />
+	</Root>
+)
+
+function Todos() {
+	...
+}
+
+function CreateTodo() {
+	return <Form action="/todos" method="post">
+		<input type="text" name="title" />
+		<button>Create todo</button>
+	</Form>
+}
+```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/components/form" variant="text" arrow="right">
+		<>Tell me more about the Form element</>
+	</Button>
+</div>
+
+On the web, submitting form data is also a navigation. The `action` property of the form element should be the target url to navigate to.
+To handle the POST navigation data, add an action property to the target route in the routes configuration.
+This example will navigate to `/todos` when submitting the form, so we add an action handler to the `Todos` route.
+
+```javascript
+let Router = Routes(
+	<Root>
+		<Todos path="todos" action={todosAction} />
+		<CreateTodo path="todos/create" />
+	</Root>
+)
+
+async function todosAction({ request }) {
+	let formData = await request.formData()
+	let todo = Object.fromEntries(formData)
+		...
+}
+```
+
+When the action is completed successfully, the router will start navigation to the target url.
+
+Most likely there will be more than one different type of action that will navigate to a route.
+Deleting a todo for example should maybe also show the `/todos` overview after the todo is deleted.
+To differentiate between different actions you could add a seperate form field to specify the action's intent.
+
+```javascript
+let Router = Routes(
+	<Root>
+		<Todos path="todos" action={todosAction} />
+		<CreateTodo path="todos/create" />
+		<DeleteTodo path="todos/delete" />
+	</Root>
+)
+
+function CreateTodo() {
+	return <Form action="/todos" method="post">
+		<input type="text" name="title" />
+		<button name="intent" value="create todo">Create todo</button>
+	</Form>
+}
+
+function DeleteTodo() {
+	return <Form action="/todos" method="post">
+		<input type="hidden" name="id" value={todo.id} />
+		<button name="intent" value="delete todo">Delete todo</button>
+	</Form>
+}
+
+async function todosAction({ request }) {
+	let formData = await request.formData()
+	let intent = formData.get('intent')
+	if (intent === 'create todo') {
+		...
+	} else if (intent === 'delete todo') {
+		...
+	}
+}
+```
+
+The route component with the action property can use the result of the action with the [useActionResult](/hooks/use-action-result) hook.
+
+```javascript
+async function todosAction({ request }) {
+	let formData = await request.formData()
+	let intent = formData.get('intent')
+	if (intent === 'create todo') {
+		...
+		return { message: 'Todo created' }
+	} else if (intent === 'delete todo') {
+		...
+		return { message: 'Todo deleted' }
+	}
+}
+
+function Todos() {
+	let action = useActionResult()
+
+	let message = action?.message
+	let messageElement
+	if (message) {
+		messageElement = <Alert>{message}</Alert>
+	}
+
+	return (
+		<>
+			{messageElement}
+			...
+		</>
+	);
+}
+```
+
+<Info>
+	Remember that a route can always be navigated to without an action. Make sure
+	the route component using the action result can also handle an `undefined`
+	action result.
+</Info>
+
+An action handler can handle the actions of multiple target routes if it is defined higher up in the routes configuration.
+
+```javascript
+let Router = Routes(
+	<Root action={rootAction}>
+		<Todos path="todos" />
+		<CreateTodo path="todos/create" />
+
+		<Users path="users" />
+		<CreateUser path="users/create" />
+	</Root>
+)
+
+async function rootAction({ request }) {
+	let formData = await request.formData()
+	let intent = formData.get('intent')
+	if (intent === 'create todo') {
+		...
+	} else if (intent === 'create user') {
+		...
+	}
+}
+
+function Root() {
+	let action = useActionResult()
+		...
+}
+```
+
+This way the `Root` route component will handle actions for all its child routes. Having one route to handle all actions will make for a uniform way to render all the action results.
+A route can always override the way action results are rendered by defining their own action handler.
+
+```javascript
+let Router = Routes(
+	<Root action={rootAction}>
+		<Todos path="todos" />
+		<CreateTodo path="todos/create" />
+
+		<Admin action={adminAction}>
+			<Users path="users" />
+			<CreateUser path="users/create" />
+		</Admin>
+	</Root>
+)
+
+async function rootAction({ request }) {
+	let formData = await request.formData()
+	let intent = formData.get('intent')
+	if (intent === 'create todo') {
+		...
+	}
+}
+
+async function adminAction({ request }) {
+	let formData = await request.formData()
+	let intent = formData.get('intent')
+	if (intent === 'create user') {
+		...
+	}
+}
+
+function Root() {
+	let action = useActionResult()
+		...
+}
+
+function Admin() {
+	let action = useActionResult()
+		...
+}
+```
+
+All POST navigations to `/users` will be handled in the `adminAction` handler. For these navigations only the `Admin` route component will have an action result.
+
+### Errors
+
+When the action handler throws an error, navigation will not occur. Errors should be handled with the `onError` callback.
+
+```javascript
+function CreateTodo() {
+	function handleError(event, error) {
+		...
+	}
+
+	return <Form action="/todos" method="post" onError={handleError}>
+		<input type="text" name="title" />
+		<button>Create todo</button>
+	</Form>
+}
+```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/guides/callbacks" variant="text" arrow="right">
+		<>Tell me more about navigation callbacks</>
+	</Button>
+</div>
