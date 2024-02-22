@@ -116,7 +116,7 @@ function MobileNavigationDialog({ isOpen, close }) {
 					>
 						<motion.div
 							layoutScroll
-							className="fixed bottom-0 left-0 top-14 w-full max-w-sm overflow-y-auto bg-white px-4 pb-12 pt-6 shadow-lg shadow-zinc-900/10 ring-1 ring-zinc-900/7.5 sm:px-6 sm:pb-10 dark:bg-zinc-900 dark:ring-zinc-800"
+							className="fixed bottom-0 left-0 top-14 w-full max-w-[min(24rem,80vw)] overflow-y-auto bg-white px-4 pb-12 pt-6 shadow-lg shadow-zinc-900/10 ring-1 ring-zinc-900/7.5 sm:px-6 sm:pb-10 dark:bg-zinc-900 dark:ring-zinc-800"
 						>
 							<Navigation />
 						</motion.div>
