@@ -1,0 +1,122 @@
+# Loading states
+
+The 3 hooks used for navigating; `useLink`, `useForm`, and `useNavigate` all have the same signature.
+
+```javascript
+[Link, busy, loading, navigations] = useLink();
+[Form, busy, loading, navigations] = useForm();
+[navigate, busy, loading, navigations] = useNavigate();
+```
+
+### Busy
+
+Busy is a boolean indicating whether at least 1 navigation is currently happening.
+
+A common use case is to disable form controls preventing another navigation while a form navigation is already busy.
+
+```javascript
+function CreateTodo() {
+	let [Form, busy, loading, navigations] = useForm();
+
+	return (
+		<Form action="/todos" method="post">
+			<fieldset disabled={busy}>
+				<input type="text" name="title" />
+				<button name="intent" value="create todo">
+					Create
+				</button>
+			</fieldset>
+		</Form>
+	);
+}
+```
+
+### Loading
+
+Loading is similar to the busy state, but specifically tailored to conditionally changing the user interface.
+
+```javascript
+function CreateTodo() {
+	let [Form, busy, loading, navigations] = useForm();
+
+	let loadingElement;
+	if (loading) {
+		loadingElement = <Spinner />;
+	}
+
+	return (
+		<>
+			{loadingElement}
+			<Form action="/todos" method="post">
+				<fieldset disabled={busy}>
+					<input type="text" name="title" />
+					<button name="intent" value="create todo">
+						Create
+					</button>
+				</fieldset>
+			</Form>
+		</>
+	);
+}
+```
+
+It will prevent user interface flicker because:
+
+1. it will wait a very small amount of time before changing from false to true. This allows navigations that take an almost imperceptible amount of time, to not show a loading state at all. The delay can be adjusted with the [delayLoadingMs](/components/router#delayLoadingMs) property of the router. However, it has got a very sensible default of 30ms, so you probably should not care too much about changing it.
+1. it will wait some amount of time before changing from true to false. This prevents navigations that are already loading to stop showing the loading state too quickly. The delay can be adjusted with the [minimumLoadingMs](/components/router#minimumLoadingMs) property of the router. However, it has got a very sensible default of 500ms, so you probably should not care too much about changing it.
+
+### Navigations
+
+Navigations is an array with the navigations that are currently busy.
+
+<Info>
+	Be aware that the navigations array from the hook are only those navigations
+	that were initiated from the Link, Form, or navigate function the hook
+	returned. If you need all current navigations globally, there is a seperate
+	[useNavigations](/hooks/use-navigations) hook to do just that.
+</Info>
+
+Use the navigation details to implement optimistic user interface.
+
+```javascript
+function Users(props) {
+	let users = useLoaderResult()
+
+	let [Form, busy, loading, navigations] = useForm()
+
+	let optimisticUsers =
+}
+```
+
+Or use the navigations if you intend to manually abort the with [useAbort](/hooks/use-abort).
+
+```javascript
+// abort
+```
+
+<Info>
+
+```javascript
+function Component() {
+	[SignoutForm, isSigningOut, signingOutLoading, logouts] = useForm();
+	[NewUserForm, new, creatingUserLoading, creatingUserNavigations] = useLink();
+}
+```
+
+Render a form multiple times to share navigation states
+
+```javascript
+function Component() {
+	[Form, busy, loading, navigations] = useForm();
+
+	return (
+		<>
+			<Form></Form>
+
+			<Form></Form>
+		</>
+	);
+}
+```
+
+</Info>

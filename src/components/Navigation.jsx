@@ -209,8 +209,11 @@ export const navigation = [
 	{
 		title: 'Basic guides',
 		links: [
+			{ title: 'Loading states', href: '/guides/loading-states' },
 			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
-			{ title: 'Sticky navigation', href: '/guides/sticky' },
+			{ title: 'Sticky navigation', href: '/guides/sticky-navigation' },
+			{ title: 'Aborting navigations', href: '/guides/abort' },
+			{ title: 'Reloading', href: '/guides/reload' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
 			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
 			{ title: 'Search parameters', href: '/guides/search' },
@@ -221,6 +224,7 @@ export const navigation = [
 		title: 'Advanced guides',
 		links: [
 			{ title: 'Roots', href: '/guides/linking' },
+			{ title: 'Timings', href: '/guides/timings' },
 			{ title: 'Route paths', href: '/guides/paths' },
 			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Server routes', href: '/guides/server' },
