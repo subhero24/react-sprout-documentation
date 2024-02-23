@@ -207,13 +207,21 @@ export const navigation = [
 		],
 	},
 	{
+		title: 'Basic guides',
+		links: [
+			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
+			{ title: 'Sticky navigation', href: '/guides/sticky' },
+			{ title: 'Redirecting', href: '/guides/redirecting' },
+			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
+			{ title: 'Search parameters', href: '/guides/search' },
+			{ title: 'Loading states', href: '/guides/loading-states' },
+		],
+	},
+	{
 		title: 'Advanced guides',
 		links: [
-			{ title: 'Search parameters', href: '/guides/search' },
-			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
+			{ title: 'Roots', href: '/guides/linking' },
 			{ title: 'Route paths', href: '/guides/paths' },
-			{ title: 'Loading states', href: '/guides/loading-states' },
-			{ title: 'Sticky navigation', href: '/guides/sticky' },
 			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Server routes', href: '/guides/server' },
 			{ title: 'Server rendering', href: '/guides/ssr' },

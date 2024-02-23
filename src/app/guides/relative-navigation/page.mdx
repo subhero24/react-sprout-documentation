@@ -1,0 +1,72 @@
+# Relative navigation
+
+The `href` attribute of a Link, the `action` attribute of a Form, and the `to` parameter to the navigate function
+all specify the target url of a navigation.
+
+By default, relative targets are relative to the path of the route that does the navigation.
+
+```javascript
+import Routes, { Link } from 'react-sprout';
+
+let Router = Routes(
+	<Root>
+		<Admin path="admin">
+			<Users path="users" />
+			<User path="users/:userId" />
+		</Admin>
+	</Root>,
+);
+
+function Admin(props) {
+	return (
+		<main>
+			<h1>Admin</h1>
+			<nav>
+				<Link href="users">Users</Link>
+			</nav>
+			<section>{props.children}</section>
+		</main>
+	);
+}
+```
+
+The Link element that is rendered by the Admin route component uses a relative target `users`.
+It will always resolve to `/admin/users` as all relative targets inside the Admin route component will be relative to `/admin`.
+This makes relative navigation predictable as they always resolve to the same url, regardless of the current url.
+
+This "route relative" behaviour can be disabled by setting `relative` to `false`, causing navigation targets to be relative to the current url instead.
+
+```javascript
+function Admin(props) {
+	return (
+		<main>
+			<h1>Admin</h1>
+			<nav>
+				<Link href=".." relative={false}>
+					Up
+				</Link>
+			</nav>
+			<section>{props.children}</section>
+		</main>
+	);
+}
+```
+
+This will make the target url of the Link dependent on the current url:
+
+- When the current url is `/admin/users`, the Link would refer to `/admin`.
+- When the current url is `/admin/users/1`, the Link would refer to `/admin/users`.
+
+<Info>
+	If you ever need to resolve paths in the same way the router does, without
+	actually navigating, there is a [useResolve](/hooks/use-resolve) hook to do just that.
+
+    ```javascript
+    function UpLink(props) {
+    	let href = useResolve('..', { relative: false })
+
+    	return <a href={href}>Up</a>
+    }
+    ```
+
+</Info>
