@@ -1,0 +1,25 @@
+# Sticky navigation
+
+By default, a navigation to a new page will show the new page immediately.
+Parts of the new page that need to load their data with loaders, will have very little to show but a loading indicator.
+
+A sticky navigation however will wait on the current page and loads data for the new page in the background.
+Once data is available, the new page will show with all data ready to render, avoiding loading indicators on the new page.
+
+To do a sticky navigation, add the `sticky` property to the Link or Form element;
+
+```javascript
+<Link href="/" sticky>
+	Home
+</Link>
+
+<Form action="/" method="post" sticky>
+	...
+</Form>
+```
+
+Or use the `sticky` option if navigating programmatically;
+
+```javascript
+navigate('/', { sticky: true });
+```

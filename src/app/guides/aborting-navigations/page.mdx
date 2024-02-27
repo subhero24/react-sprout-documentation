@@ -1,0 +1,42 @@
+# Aborting navigations
+
+Aborting navigations can be done with the [useAbort](/hooks/use-abort) hook.
+
+```javascript
+function Route() {
+	let abort = useAbort();
+	let [Form, busy, loading, navigations] = useForm();
+
+	function handleAbortButtonClick() {
+		abort(navigations); // aborts all navigations from the Form
+	}
+
+	return (
+		<>
+			<Form method="post">...</Form>
+			<button onClick={handleAbortButtonClick}>Abort</button>
+		</>
+	);
+}
+```
+
+<Info>
+	Be aware that the navigations array from the `useLink`, `useForm`, and `useNavigate` hooks are only those
+	navigations that were initiated from the Link, Form, or navigate function from
+	the hook itself. If you need all current navigations globally, there is a
+	seperate [useNavigations](/hooks/use-navigations) hook to do just that.
+
+    ```javascript
+    function Route() {
+    	let abort = useAbort()
+    	let navigations = useNavigations()
+
+    	function handleAbortButtonClick() {
+    		abort(navigations) // aborts all navigations globally
+    	}
+
+    	...
+    }
+    ```
+
+</Info>

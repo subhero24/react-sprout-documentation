@@ -42,14 +42,13 @@ let Router = Routes(
 	</Root>
 )
 
-async function todosAction({ request }) {
-	let formData = await request.formData()
-	let todo = Object.fromEntries(formData)
+async function todosAction({ data }) {
+	let todo = Object.fromEntries(data)
 		...
 }
 ```
 
-When the action is completed successfully, the router will start navigation to the target url.
+If a form is used to navigate, the data will be a [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instance. When the action is completed successfully, the router will start navigation to the target url.
 
 Most likely there will be more than one different type of action that will navigate to a route.
 Deleting a todo for example should maybe also show the `/todos` overview after the todo is deleted.
@@ -78,9 +77,8 @@ function DeleteTodo() {
 	</Form>
 }
 
-async function todosAction({ request }) {
-	let formData = await request.formData()
-	let intent = formData.get('intent')
+async function todosAction({ data }) {
+	let intent = data.get('intent')
 	if (intent === 'create todo') {
 		...
 	} else if (intent === 'delete todo') {
@@ -92,9 +90,8 @@ async function todosAction({ request }) {
 The route component with the action property can use the result of the action with the [useActionResult](/hooks/use-action-result) hook.
 
 ```javascript
-async function todosAction({ request }) {
-	let formData = await request.formData()
-	let intent = formData.get('intent')
+async function todosAction({ data }) {
+	let intent = data.get('intent')
 	if (intent === 'create todo') {
 		...
 		return { message: 'Todo created' }
@@ -141,9 +138,8 @@ let Router = Routes(
 	</Root>
 )
 
-async function rootAction({ request }) {
-	let formData = await request.formData()
-	let intent = formData.get('intent')
+async function rootAction({ data }) {
+	let intent = data.get('intent')
 	if (intent === 'create todo') {
 		...
 	} else if (intent === 'create user') {
@@ -173,17 +169,15 @@ let Router = Routes(
 	</Root>
 )
 
-async function rootAction({ request }) {
-	let formData = await request.formData()
-	let intent = formData.get('intent')
+async function rootAction({ data }) {
+	let intent = data.get('intent')
 	if (intent === 'create todo') {
 		...
 	}
 }
 
-async function adminAction({ request }) {
-	let formData = await request.formData()
-	let intent = formData.get('intent')
+async function adminAction({ data }) {
+	let intent = data.get('intent')
 	if (intent === 'create user') {
 		...
 	}

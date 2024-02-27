@@ -37,7 +37,7 @@ async function todosLoader() {
 }
 ```
 
-The loaders have access to the request, splat, and params if you need them.
+The loaders have access to the url, params, and splat if you need them.
 
 ```javascript
 let Router = Routes(
@@ -46,13 +46,19 @@ let Router = Routes(
 	</>,
 );
 
-async function todoLoader({ request, splat, params }) {
+async function todoLoader({ url, params, splat }) {
 	let response = await fetch(`/api/todos/${params.todoId}`);
 	let user = await response.json();
 
 	return user;
 }
 ```
+
+<div className="not-prose flex flex-col items-start">
+	<Button href="/guides/loader-parameters" variant="text" arrow="right">
+		<>Tell me more about some other loader parameters</>
+	</Button>
+</div>
 
 ### Suspense
 

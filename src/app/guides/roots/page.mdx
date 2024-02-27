@@ -1,0 +1,28 @@
+# Roots
+
+A root route will act as the root when its children are navigating to absolute urls. Roots are useful to contain an application, or a part of it, at a base url.
+
+Add a root property in the route configuration to mark a route as a root route.
+
+```javascript
+import Routes, { Link } from 'react-sprout'
+
+let Router = Routes(
+	<App path="app" root>
+		<Todos path="todos" />
+		<Todo path="todos/:todoId" />
+	</App>
+)
+
+function Todo() {
+	...
+
+	return <>
+		<Link href="/todos">Todos</Link>
+
+		...
+	</>
+}
+```
+
+The absolute link inside the Todo route component will link to `/app/todos` instead of `/todos` because the App route component which is found at `/app` is a root route.

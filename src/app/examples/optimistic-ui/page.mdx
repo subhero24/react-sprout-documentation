@@ -1,0 +1,42 @@
+signals
+
+### Navigations
+
+Navigations is an array with the navigations that are currently happening.
+
+You can use the navigations to implement an optimistic user interface.
+
+```javascript
+function Todos(props) {
+	let todos = useLoaderResult();
+
+	let [Form, busy, loading, navigations] = useForm();
+
+	let todoElements = useMemo(() => {
+		let optimisticTodos = navigations.map((navigation) => {
+			return {
+				title: navigation.detail.data.get('title'),
+			};
+		});
+
+		return [...todos, optimisticTodos].map((todo, index) => {
+			return <div key={todo.id ?? index}>{todo.title}</div>;
+		});
+	});
+
+	return (
+		<>
+			<Form method="post">
+				<input type="text" name="title" defaultValue="new todo" />
+				<button name="intent" value="create todo">
+					Create todo
+				</button>
+			</Form>
+
+			{todoElements}
+		</>
+	);
+}
+```
+
+You can also use the navigations that are currently happening to implement an optimistic user interface.
