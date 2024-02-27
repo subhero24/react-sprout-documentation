@@ -9,12 +9,12 @@ By default, relative targets are relative to the path of the route that does the
 import Routes, { Link } from 'react-sprout';
 
 let Router = Routes(
-	<Root>
+	<App>
 		<Admin path="admin">
-			<Users path="users" />
-			<User path="users/:userId" />
+			<Tags path="tags" />
+			<Tag path="tags/:tagId" />
 		</Admin>
-	</Root>,
+	</App>,
 );
 
 function Admin(props) {
@@ -22,7 +22,7 @@ function Admin(props) {
 		<main>
 			<h1>Admin</h1>
 			<nav>
-				<Link href="users">Users</Link>
+				<Link href="tags">Tags</Link>
 			</nav>
 			<section>{props.children}</section>
 		</main>
@@ -30,8 +30,8 @@ function Admin(props) {
 }
 ```
 
-The Link element that is rendered by the Admin route component uses a relative target `users`.
-It will always resolve to `/admin/users` as all relative targets inside the Admin route component will be relative to `/admin`.
+The Link element that is rendered by the Admin route component uses a relative target `tags`.
+It will always resolve to `/admin/tags` as all relative targets inside the Admin route component will be relative to `/admin`.
 This makes relative navigation predictable as they always resolve to the same url, regardless of the current url.
 
 This "route relative" behavior can be disabled by setting `relative` to `false`, causing navigation targets to be relative to the current url instead.
@@ -54,8 +54,8 @@ function Admin(props) {
 
 This will make the target url of the Link dependent on the current url:
 
-- When the current url is `/admin/users`, the Link would refer to `/admin`.
-- When the current url is `/admin/users/1`, the Link would refer to `/admin/users`.
+- When the current url is `/admin/tags`, the Link would refer to `/admin`.
+- When the current url is `/admin/tags/1`, the Link would refer to `/admin/tags`.
 
 <Info>
 	If you ever need to resolve paths in the same way the router does, without

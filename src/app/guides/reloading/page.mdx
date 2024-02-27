@@ -1,0 +1,88 @@
+# Reloading
+
+When navigating to a new page, routes that are present in the layout of both pages will reuse their loader result without invoking the loader again.
+
+To force a reload of all route loaders of the new page, add the `reload` property to the Link or Form element.
+
+```javascript
+<Link href="/" reload={true}>Navigate</Link>
+
+<Form action="/" reload={true}>
+	<button>Navigate</button>
+</Form>
+```
+
+Or use the `reload` option when navigating programmatically;
+
+```javascript
+navigate('/', { reload: true });
+```
+
+<Info>
+A more elegant way to specify the reload property on a Link or Form element is to set the property without a value. React assumes an element property value to be true when no value is given.
+
+```javascript
+<Link href="/" reload>Navigate</Link>
+
+<Form action="/" reload>
+	<button>Navigate</button>
+</Form>
+```
+
+</Info>
+
+Not specifying a target url will default to the same url, effectively reloading the current page.
+
+```javascript
+<Link reload>Reload</Link>
+
+<Form reload>
+	<button>Reload</button>
+</Form>
+```
+
+<Info>
+	Note that there is a difference between the Link and Form version of the
+	reload button. A form without a POST method property will use its form fields
+	as search parameters of the url. In this case effectively removing all search
+	parameters of the current page as there are no fields in the form. If no
+	search parameters were present on the current page, the Link and Form versions
+	would be equivalent.
+</Info>
+
+Or reloading the current page programmatically;
+
+```javascript
+navigate({ reload: true });
+```
+
+<Info>
+	Reloading all route loaders will suspend the current page, as there is no data immediately available to render the page.
+	To improve the user experience, reload the route loaders in the background with [sticky navigation](/guides/sticky-navigation):
+
+    ```javascript
+    <Link sticky reload>Reload</Link>
+    ```
+
+    And implement a loading indicator on the page to show the page is reloading in the background
+
+    ```javascript
+    function Route() {
+    	let [Link, busy, reloading, navigations] = useLink()
+
+    	let reloadElement
+    	if (reloading) {
+    		reloadElement = <Spinner />
+    	} else {
+    		reloadElement = <Link sticky reload>Reload</Link>
+    	}
+
+    	return <>
+    		{reloadElement}
+
+    		...
+    	</>
+    }
+    ```
+
+</Info>

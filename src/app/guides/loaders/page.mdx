@@ -48,9 +48,9 @@ let Router = Routes(
 
 async function todoLoader({ url, params, splat }) {
 	let response = await fetch(`/api/todos/${params.todoId}`);
-	let user = await response.json();
+	let todo = await response.json();
 
-	return user;
+	return todo;
 }
 ```
 
@@ -67,17 +67,17 @@ Use react suspense boundaries somewhere up in the component tree to display a fa
 
 ```javascript
 let Router = Routes(
-	<Root>
+	<App>
 		<Todo path="todos/:todoId" loader={todoLoader} />
-	</Root>,
+	</App>,
 );
 
-function Root(props) {
+function App(props) {
 	return <Suspense fallback="loading...">{props.children}</Suspense>;
 }
 
 function Todo() {
-	let user = useLoaderResult();
+	let todo = useLoaderResult();
 		...
 }
 ```
@@ -89,17 +89,17 @@ Use react error boundaries somwhere up in the component tree to display an error
 
 ```javascript
 let Router = Routes(
-	<Root>
+	<App>
 		<Todo path="todos/:todoId" loader={todoLoader} />
-	</Root>,
+	</App>,
 );
 
-function Root(props) {
+function App(props) {
 	return <ErrorBoundary>{props.children}</ErrorBoundary>;
 }
 
 function Todo() {
-	let user = useLoaderResult();
+	let todo = useLoaderResult();
 		...
 }
 

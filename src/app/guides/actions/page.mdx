@@ -6,10 +6,10 @@ Actions are used to enable data mutations. The idiomatic way to submit data for 
 import Routes, { Form } from 'react-sprout'
 
 let Router = Routes(
-	<Root>
+	<App>
 		<Todos path="todos" />
 		<CreateTodo path="todos/create" />
-	</Root>
+	</App>
 )
 
 function Todos() {
@@ -36,10 +36,10 @@ This example will navigate to `/todos` when submitting the form, so we add an ac
 
 ```javascript
 let Router = Routes(
-	<Root>
+	<App>
 		<Todos path="todos" action={todosAction} />
 		<CreateTodo path="todos/create" />
-	</Root>
+	</App>
 )
 
 async function todosAction({ data }) {
@@ -48,7 +48,10 @@ async function todosAction({ data }) {
 }
 ```
 
-If a form is used to navigate, the data will be a [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instance. When the action is completed successfully, the router will start navigation to the target url.
+The data from the form will be passed as an argument to the action function.
+It will be a [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams) or [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instance, depending on the encoding type property of the form.
+
+When the action is completed successfully, the router will start navigating to the target url.
 
 Most likely there will be more than one different type of action that will navigate to a route.
 Deleting a todo for example should maybe also show the `/todos` overview after the todo is deleted.
@@ -56,11 +59,11 @@ To differentiate between different actions you should add a seperate form field 
 
 ```javascript
 let Router = Routes(
-	<Root>
+	<App>
 		<Todos path="todos" action={todosAction} />
 		<CreateTodo path="todos/create" />
 		<DeleteTodo path="todos/delete" />
-	</Root>
+	</App>
 )
 
 function CreateTodo() {
@@ -129,44 +132,44 @@ An action handler can handle the actions of multiple target routes if it is defi
 
 ```javascript
 let Router = Routes(
-	<Root action={rootAction}>
+	<App action={rootAction}>
+		<Tags path="tags" />
+		<CreateTag path="tags/create" />
+
 		<Todos path="todos" />
 		<CreateTodo path="todos/create" />
-
-		<Users path="users" />
-		<CreateUser path="users/create" />
-	</Root>
+	</App>
 )
 
 async function rootAction({ data }) {
 	let intent = data.get('intent')
-	if (intent === 'create todo') {
+	if (intent === 'create tag') {
 		...
-	} else if (intent === 'create user') {
+	} else if (intent === 'create todo') {
 		...
 	}
 }
 
-function Root() {
+function App() {
 	let action = useActionResult()
 		...
 }
 ```
 
-This way the `Root` route component will handle actions for all its child routes. Having one route to handle all actions will make for a uniform way to render all the action results.
+This way the `App` route component will handle actions for all its child routes. Having one route to handle all actions will make for a uniform way to render all the action results.
 A route can always override the way action results are rendered by defining their own action handler.
 
 ```javascript
 let Router = Routes(
-	<Root action={rootAction}>
+	<App action={rootAction}>
 		<Todos path="todos" />
 		<CreateTodo path="todos/create" />
 
 		<Admin action={adminAction}>
-			<Users path="users" />
-			<CreateUser path="users/create" />
+			<Tags path="tags" />
+			<CreateTag path="tags/create" />
 		</Admin>
-	</Root>
+	</App>
 )
 
 async function rootAction({ data }) {
@@ -178,12 +181,12 @@ async function rootAction({ data }) {
 
 async function adminAction({ data }) {
 	let intent = data.get('intent')
-	if (intent === 'create user') {
+	if (intent === 'create tag') {
 		...
 	}
 }
 
-function Root() {
+function App() {
 	let action = useActionResult()
 		...
 }
@@ -194,7 +197,7 @@ function Admin() {
 }
 ```
 
-All POST navigations to `/users` will be handled in the `adminAction` handler. For these navigations only the `Admin` route component will have an action result.
+All POST navigations to `/tags` will be handled in the `adminAction` handler. For these navigations only the `Admin` route component will have an action result.
 
 ### Errors
 

@@ -213,7 +213,7 @@ export const navigation = [
 			{ title: 'Sticky navigation', href: '/guides/sticky-navigation' },
 			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
 			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
-			{ title: 'Reloading', href: '/guides/reload' },
+			{ title: 'Reloading', href: '/guides/reloading' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
 			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
 			{ title: 'Search parameters', href: '/guides/search' },

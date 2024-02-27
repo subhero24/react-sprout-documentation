@@ -5,18 +5,18 @@ A parameter starts with a colon and defines a placeholder in the url for a value
 
 ```javascript
 let Router = Routes(
-	<Root path=":language">
+	<App path=":language">
 		<Todo path="todos/:todoId">
-	</Root>,
+	</App>,
 )
 ```
 
 Urls like `/en/todos/1` and `/fr/todos/42` will both match the general form `/:language/todos/:todoId` and the router will render both urls with this layout
 
 ```javascript
-<Root>
+<App>
 	<Todo>
-</Root>
+</App>
 ```
 
 The parameter names, as defined in the configuration, and their extracted values will be accessible inside the route components with the [useParams](/hooks/use-params) hook.
@@ -24,7 +24,7 @@ The parameter names, as defined in the configuration, and their extracted values
 ```javascript
 import { useParams } from 'react-sprout'
 
-function Root() {
+function App() {
 	let { language } = useParams()
 		...
 }

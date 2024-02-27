@@ -6,34 +6,34 @@ As most user interfaces are hierarchical in nature, so can the routes be nested 
 ```javascript
 import Routes from 'react-sprout';
 
-import Root from './root.jsx';
+import App from './app.jsx';
 import Home from './home.jsx';
 import Admin from './admin.jsx';
 import Users from './users.jsx';
 import Posts from './posts.jsx';
 
 let Router = Routes(
-	<Root path="app">
+	<App path="app">
 		<Home path="home" />
 		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="posts" />
 		</Admin>
-	</Root>,
+	</App>,
 );
 ```
 
 The `Router` element will progressively match segments from the current url to the nested path properties of the routes to figure out what to render.
 
-The url `/app/admin/posts` for example has three segments; `app`, `admin` and `posts` which will respectively match the paths of the `Root`, `Admin`, and `Posts` routes.
+The url `/app/admin/posts` for example has three segments; `app`, `admin` and `posts` which will respectively match the paths of the `App`, `Admin`, and `Posts` routes.
 These matched routes form the element structure for the page at this url.
 
 ```javascript
-<Root>
+<App>
 	<Admin>
 		<Posts />
 	</Admin>
-</Root>
+</App>
 ```
 
 A route component can render its child route like any other react component would, by using `props.children`:
@@ -56,14 +56,14 @@ function Admin(props) {
 
     ```javascript
     let Router = Routes(
-    	<Root path="app">
+    	<App path="app">
     		<Home path="home" />
     		<Admin path="admin" />
     		<AdminLayout path="admin">
     			<Users path="users" />
     			<Posts path="posts" />
     		</AdminLayout>
-    	</Root>,
+    	</App>,
     );
     ```
 
@@ -75,13 +75,13 @@ While each route in the previous example specified exactly one segment of the ur
 
 ```javascript
 let Router = Routes(
-	<Root path="app">
+	<App path="app">
 		<Home />
 		<Admin path="admin">
 			<Users path="users" />
 			<Posts path="content/posts" />
 		</Admin>
-	</Root>,
+	</App>,
 );
 ```
 
@@ -96,11 +96,11 @@ let Router = Routes(
 
     ```javascript
     let Router = Routes(
-    	<Root>
+    	<App>
     		<Home />
     		<Users path="admin/users" />
     		<Posts path="admin/content/posts" />
-    	</Root>,
+    	</App>,
     )
     ```
 
