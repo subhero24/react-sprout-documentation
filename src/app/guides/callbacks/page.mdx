@@ -1,0 +1,105 @@
+# Navigation callbacks
+
+There are a few navigation callbacks to manage the lifecycle of a navigation:
+
+- onNavigate
+- onCancel
+- onNavigateStart
+- onAborted
+- onError
+- onNavigateEnd
+
+These callbacks can be added as properties to the [Router](/components/router) element to be called for all router navigations.
+
+```javascript
+
+let Router = Routes(
+	<App>
+		<Todos path="todos" />
+		...
+	</App>
+)
+
+function Application() {
+	function onNavigate(event) { ... }
+	function onCancel(event) { ... }
+	...
+
+	return <Router onNavigate={onNavigate} onCancel={onCancel} />
+}
+
+```
+
+They can also be used as properties to [Link](/components/link) and [Form](/components/form) elements to be invoked only with navigations from these components.
+
+```javascript
+function Route() {
+	let [Link, busy, loading, navigations] = useLink()
+
+	function onNavigate(event) { ... }
+	function onCancel(event) { ... }
+	...
+
+	return <Link href="/" onNavigate={onNavigate} onCancel={onCancel}>Navigate</Link>
+}
+```
+
+```javascript
+function Route() {
+	let [Form, busy, loading, navigations] = useForm()
+
+	function onNavigate(event) { ... }
+	function onCancel(event) { ... }
+	...
+
+	return <Form action="/" onNavigate={onNavigate} onCancel={onCancel}>
+		...
+	</Form>
+}
+```
+
+Or use them as an option to the [navigate](/hooks/use-navigate#navigate) function when navigating programmatically.
+
+```javascript
+function Route() {
+	let [navigate, busy, loading, navigations] = useNavigate()
+
+    useEffect(() => {
+    	function onNavigate() { ... }
+    	function onCancel() { ... }
+
+    	setTimeout(() => {
+    		navigate("/", { onNavigate, onCancel })
+    	}, 5000)
+    }, [])
+
+	...
+}
+
+```
+
+### onNavigate(event)
+
+When a navigation is requested the onNavigate callback is invoked with a navigation event. Use this callback to cancel some or all navigation events by calling `preventDefault` on the navigation event.
+
+### onCancel(event)
+
+When a navigation event was canceled, either in the onNavigate callback or in an event listener for `navigate` events, the onCancel callback will be invoked.
+
+### onNavigateStart(event)
+
+When no callback or event handler has prevented the navigation, the onNavigateStart callback will be invoked.
+
+### onAborted(event, reason)
+
+When the navigation was aborted, the onAborted callback will be invoked.
+
+A navigation can be aborted automatically by the router because it is interrupted by another navigation. Or navigations can be aborted manually with the [useAbort](/hooks/use-abort) hook.
+
+### onError(event, error)
+
+When the action of a POST navigation throws an error, the onError callback will be invoked
+
+### onNavigateEnd(event)
+
+When the navigation was successful, the onNavigateEnd callback will be invoked.
