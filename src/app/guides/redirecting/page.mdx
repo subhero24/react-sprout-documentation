@@ -15,10 +15,7 @@ let Router = Routes(
 async function action({ data }) {
 	let intent = data.get('intent');
 	if (intent === 'create todo') {
-		let todo = await fetch('/api/todos', {
-			method: 'post',
-			body: Object.fromEntries(data),
-		});
+		let todo = await fetch('/api/todos', { method: 'post', body: data });
 		return todo;
 	}
 }
@@ -51,12 +48,27 @@ Returning a redirect response will redirect the router to the newly available ur
 async function action({ data }) {
 	let intent = data.get('intent');
 	if (intent === 'create todo') {
-		let todo = await fetch('/api/todos', {
-			method: 'post',
-			body: Object.fromEntries(data),
-		});
+		let todo = await fetch('/api/todos', { method: 'post', body: data });
 
 		return Response.redirect(`/todos/${todo.id}`, 303);
 	}
 }
 ```
+
+If the api already responds with that same redirect response it would be even more concise to just return that.
+
+```javascript
+function action({ data }) {
+	let intent = data.get('intent');
+	if (intent === 'create todo') {
+		return fetch('/api/todos', { method: 'post', body: data });
+	}
+}
+```
+
+<Info>
+	As we would like the request method to change from POST to GET to visit the
+	newly created todo, a status of
+	[303](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#redirection_messages)
+	is the only valid redirect status.
+</Info>
