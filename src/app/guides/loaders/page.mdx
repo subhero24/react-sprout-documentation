@@ -37,7 +37,15 @@ async function todosLoader() {
 }
 ```
 
-The loaders have access to the url, params, and splat if you need them.
+It is also allowed to return a [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) and the router will extract the response data for you.
+
+```javascript
+function todosLoader() {
+	return fetch('/api/todos.json');
+}
+```
+
+Loaders have access to the url, params, and splat if you need them.
 
 ```javascript
 let Router = Routes(
@@ -46,11 +54,8 @@ let Router = Routes(
 	</>,
 );
 
-async function todoLoader({ url, params, splat }) {
-	let response = await fetch(`/api/todos/${params.todoId}`);
-	let todo = await response.json();
-
-	return todo;
+function todoLoader({ url, params, splat }) {
+	return fetch(`/api/todos/${params.todoId}`);
 }
 ```
 

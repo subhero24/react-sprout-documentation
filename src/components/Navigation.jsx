@@ -215,7 +215,6 @@ export const navigation = [
 			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
 			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
 			{ title: 'Reloading', href: '/guides/reloading' },
-			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
 			{ title: 'Search parameters', href: '/guides/search' },
 		],
