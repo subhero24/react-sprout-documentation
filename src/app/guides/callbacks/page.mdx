@@ -9,28 +9,7 @@ There are a few navigation callbacks to manage the lifecycle of a navigation:
 - onError
 - onNavigateEnd
 
-These callbacks can be added as properties to the [Router](/components/router) element to be called for all router navigations.
-
-```javascript
-
-let Router = Routes(
-	<App>
-		<Todos path="todos" />
-		...
-	</App>
-)
-
-function Application() {
-	function onNavigate(event) { ... }
-	function onCancel(event) { ... }
-	...
-
-	return <Router onNavigate={onNavigate} onCancel={onCancel} />
-}
-
-```
-
-They can also be used as properties to [Link](/components/link) and [Form](/components/form) elements to be invoked only with navigations from these components.
+These callbacks can be used as properties to [Link](/components/link) and [Form](/components/form) elements to be invoked with navigations from these components.
 
 ```javascript
 function Route() {
@@ -74,6 +53,27 @@ function Route() {
     }, [])
 
 	...
+}
+
+```
+
+These callbacks can also be added as properties to the [Router](/components/router) element to be called for all router navigations.
+
+```javascript
+
+let Router = Routes(
+	<App>
+		<Todos path="todos" />
+		...
+	</App>
+)
+
+function Application() {
+	function onNavigate(event) { ... }
+	function onCancel(event) { ... }
+	...
+
+	return <Router onNavigate={onNavigate} onCancel={onCancel} />
 }
 
 ```

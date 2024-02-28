@@ -215,6 +215,7 @@ export const navigation = [
 			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
 			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
 			{ title: 'Reloading', href: '/guides/reloading' },
+			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
 			{ title: 'Search parameters', href: '/guides/search' },
 		],
@@ -224,7 +225,6 @@ export const navigation = [
 		links: [
 			{ title: 'Roots', href: '/guides/roots' },
 			{ title: 'Route paths', href: '/guides/paths' },
-			{ title: 'Responses', href: '/guides/responses' },
 			{ title: 'Server routes', href: '/guides/server' },
 			{ title: 'Server rendering', href: '/guides/ssr' },
 		],

@@ -104,6 +104,11 @@ function Todo() {
 }
 
 class ErrorBoundary extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { error: undefined };
+	}
+
 	static getDerivedStateFromError(error) {
 		return { error }
 	}
