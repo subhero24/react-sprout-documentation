@@ -1,1 +1,62 @@
 # Redirecting
+
+Sometimes the target url of the navigation is not known in advance.
+
+Suppose we have a small todo application with a form to create todos.
+
+```javascript
+let Router = Routes(
+	<App action={action}>
+		<Todos path="todos" />
+		<Todo path="todos/:todoId" />
+	</App>,
+);
+
+async function action({ data }) {
+	let intent = data.get('intent');
+	if (intent === 'create todo') {
+		let todo = await fetch('/api/todos', {
+			method: 'post',
+			body: Object.fromEntries(data),
+		});
+		return todo;
+	}
+}
+
+function Todos() {
+	return (
+		<>
+			...
+			<Form action="todos" method="post">
+				<input type="text" name="title" defaultValue="new todo" />
+				<button name="intent" value="create todo">
+					Create todo
+				</button>
+			</Form>
+		</>
+	);
+}
+```
+
+If we would like the form to navigate to the newly created todo instead of `/todos`, we should set the action property of the form element to the url of the todo.
+The url of the todo however contains the id of the todo with the `:todoId` parameter.
+This is a problem, as the todo does not exist yet, and does not have an id.
+Only after the todo is created in the action, an id for the todo will be available.
+
+The solution is to redirect to the correct url in the action handler after the todo is created.
+As with loaders, actions are also allowed to return a [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
+Returning a redirect response will redirect the router to the newly available url.
+
+```javascript
+async function action({ data }) {
+	let intent = data.get('intent');
+	if (intent === 'create todo') {
+		let todo = await fetch('/api/todos', {
+			method: 'post',
+			body: Object.fromEntries(data),
+		});
+
+		return Response.redirect(`/todos/${todo.id}`, 303);
+	}
+}
+```
