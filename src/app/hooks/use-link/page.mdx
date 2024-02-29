@@ -9,12 +9,16 @@ let [Link, busy, loading, navigations] = useLink();
 ```
 
 <Properties>
-	<Property name="Link">A component to render the link</Property>
-	<Property name="busy">
+	<Property name="Link" type="Link">
+		A component to render the link
+	</Property>
+	<Property name="busy" type="boolean">
 		A boolean indicating whether navigations are currently busy.
 	</Property>
-	<Property name="loading">
+	<Property name="loading" type="boolean">
 		A boolean indicating whether navigations are currently loading.
 	</Property>
-	<Property name="navigations">An array of busy navigations.</Property>
+	<Property name="navigations" type="Array">
+		An array of busy navigations.
+	</Property>
 </Properties>

@@ -9,12 +9,16 @@ let [Form, busy, loading, navigations] = useForm();
 ```
 
 <Properties>
-	<Property name="Form">A component to render the form</Property>
-	<Property name="busy">
+	<Property name="Form" type="Form">
+		A component to render the form
+	</Property>
+	<Property name="busy" type="boolean">
 		A boolean indicating whether navigations are currently busy.
 	</Property>
-	<Property name="loading">
+	<Property name="loading" type="boolean">
 		A boolean indicating whether navigations are currently loading.
 	</Property>
-	<Property name="navigations">An array of busy navigations.</Property>
+	<Property name="navigations" type="Array">
+		An array of busy navigations.
+	</Property>
 </Properties>

@@ -9,14 +9,18 @@ let [navigate, busy, loading, navigations] = useNavigate();
 ```
 
 <Properties>
-	<Property name="navigate">A function to navigate programmatically.</Property>
-	<Property name="busy">
+	<Property name="navigate" type="function">
+		A function to navigate programmatically.
+	</Property>
+	<Property name="busy" type="boolean">
 		A boolean indicating whether navigations are currently busy.
 	</Property>
-	<Property name="loading">
+	<Property name="loading" type="boolean">
 		A boolean indicating whether navigations are currently loading.
 	</Property>
-	<Property name="navigations">An array of busy navigations.</Property>
+	<Property name="navigations" type="Array">
+		An array of busy navigations.
+	</Property>
 </Properties>
 
 ### Navigate
