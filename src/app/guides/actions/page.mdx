@@ -56,6 +56,7 @@ When the action is completed successfully, the router will start navigating to t
 Most likely there will be more than one different type of action that will navigate to a route.
 Deleting a todo for example should maybe also show the `/todos` overview after the todo is deleted.
 To differentiate between different actions you should add a seperate form field to specify the action's intent.
+Either add a hidden input field, or attach a `name` and `value` to the submit button.
 
 ```javascript
 let Router = Routes(
@@ -205,11 +206,11 @@ When the action handler throws an error, navigation will not occur. Errors shoul
 
 ```javascript
 function CreateTodo() {
-	function handleError(event, error) {
+	function handleActionError(event, error) {
 		...
 	}
 
-	return <Form action="/todos" method="post" onActionError={handleError}>
+	return <Form action="/todos" method="post" onActionError={handleActionError}>
 		<input type="text" name="title" />
 		<button>Create todo</button>
 	</Form>

@@ -38,10 +38,20 @@ function Application() {
 	<Property name="dataTransform" type="function">
 		A function to automatically transform navigation data.
 	</Property>
-	<Property name="delayLoadingMs" type="integer" defaultValue="30">
+	<Property
+		id="delayLoadingMs"
+		name="delayLoadingMs"
+		type="integer"
+		defaultValue="30"
+	>
 		The amount of milliseconds to delay a loading indicator.
 	</Property>
-	<Property name="minimumLoadingMs" type="integer" defaultValue="500">
+	<Property
+		id="minimumLoadingMs"
+		name="minimumLoadingMs"
+		type="integer"
+		defaultValue="500"
+	>
 		The minimum amount of milliseconds a loading indicator is visible.
 	</Property>
 	<Property name="defaultFormMethod" type="string" defaultValue="GET">

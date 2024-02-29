@@ -216,16 +216,16 @@ export const navigation = [
 			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
 			{ title: 'Reloading', href: '/guides/reloading' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
-			{ title: 'Search parameters', href: '/guides/search' },
+			// { title: 'Search parameters', href: '/guides/search' },
 		],
 	},
 	{
 		title: 'Advanced guides',
 		links: [
 			{ title: 'Roots', href: '/guides/roots' },
-			{ title: 'Route paths', href: '/guides/paths' },
-			{ title: 'Server routes', href: '/guides/server' },
-			{ title: 'Server rendering', href: '/guides/ssr' },
+			// { title: 'Route paths', href: '/guides/paths' },
+			// { title: 'Server routes', href: '/guides/server' },
+			// { title: 'Server rendering', href: '/guides/ssr' },
 		],
 	},
 	{
@@ -256,18 +256,18 @@ export const navigation = [
 			{ title: 'useResolve', href: '/hooks/use-resolve' },
 		],
 	},
-	{
-		title: 'Examples',
-		links: [
-			{ title: 'Authentication', href: '/examples/authentication' },
-			{ title: 'Loading states', href: '/examples/loading-states' },
-			{ title: 'Optimistic ui', href: '/examples/optimistic-ui' },
-		],
-	},
-	{
-		title: 'Support',
-		links: [{ title: 'FAQ', href: '/faq' }],
-	},
+	// {
+	// 	title: 'Examples',
+	// 	links: [
+	// 		{ title: 'Authentication', href: '/examples/authentication' },
+	// 		{ title: 'Loading states', href: '/examples/loading-states' },
+	// 		{ title: 'Optimistic ui', href: '/examples/optimistic-ui' },
+	// 	],
+	// },
+	// {
+	// 	title: 'Support',
+	// 	links: [{ title: 'FAQ', href: '/faq' }],
+	// },
 ];
 
 export function Navigation(props) {
