@@ -1,0 +1,56 @@
+# useActionError
+
+A hook to get the initial action error.
+
+Normally action errors are handled by the `onActionError` callback on the page that initiates the navigation.
+When the initial request is already a POST navigation, there is no page yet to handle an action error.
+
+So this hook is used to handle the initial action error while rendering the page itself.
+
+```javascript
+import { useActionError } from 'react-sprout';
+
+let actionError = useActionError();
+```
+
+<Properties>
+	<Property name="actionError" type="any">
+		The action error of the initial request
+	</Property>
+</Properties>
+
+<Note>
+	A `POST` navigation can be the first request to the router when using server
+	side rendering. But even client side, it is possible to start out with a
+	`POST` navigation. Consider a form with a `target="_blank"` and a
+	`method="post"`. The target will cause the navigation to open in a new window,
+	making this forms' `POST` navigation the first request of the new browser
+	window.
+</Note>
+
+You can combine the `useActionError` hook and the `onActionError` callback to handle all action errors uniformly;
+
+```javascript
+function Route() {
+	let actionError = useActionError()
+
+	let [error, setError] = useState(actionError)
+
+	function handleActionError(event, error) {
+		setError(error)
+	}
+
+	let errorElement
+	if (error) {
+		errorElement = <Error>{error}</Error>
+	}
+
+	return <>
+		{errorElement}
+
+		<Form method="post" onActionError={handleActionError}>
+			...
+		</Form>
+	<>
+}
+```

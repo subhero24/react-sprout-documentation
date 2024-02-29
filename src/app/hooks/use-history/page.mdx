@@ -1,0 +1,25 @@
+# useHistory
+
+A hook to get the history.
+
+<Info>
+	Always use this hook instead of using `window.history` directly, as concurrent
+	rendering with react will allow multiple concurrent histories to be in use.
+</Info>
+
+```javascript
+import { useHistory } from 'react-sprout';
+
+let history = useHistory();
+```
+
+<Warning>
+	Be aware that the history is only available on the client. Take into account
+	that history is `undefined` when rendering on the server.
+</Warning>
+
+<Properties>
+	<Property name="history" type="History">
+		The history
+	</Property>
+</Properties>

@@ -201,7 +201,7 @@ All POST navigations to `/tags` will be handled in the `adminAction` handler. Fo
 
 ### Errors
 
-When the action handler throws an error, navigation will not occur. Errors should be handled with the `onError` callback.
+When the action handler throws an error, navigation will not occur. Errors should be handled with the `onActionError` callback.
 
 ```javascript
 function CreateTodo() {
@@ -209,7 +209,7 @@ function CreateTodo() {
 		...
 	}
 
-	return <Form action="/todos" method="post" onError={handleError}>
+	return <Form action="/todos" method="post" onActionError={handleError}>
 		<input type="text" name="title" />
 		<button>Create todo</button>
 	</Form>

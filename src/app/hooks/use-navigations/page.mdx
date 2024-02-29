@@ -1,0 +1,38 @@
+# useNavigations
+
+A hook to get all global navigations.
+
+```javascript
+import { useNavigations } from 'react-sprout';
+
+let navigations = useNavigations();
+```
+
+<Properties>
+	<Property name="navigations" type="Array">
+		An array of busy navigations.
+	</Property>
+</Properties>
+
+### navigations
+
+<Properties>
+	<Property name="navigations.loading" type="boolean">
+		A boolean indicating whether a navigation is loading.
+	</Property>
+	<Property name="navigations.detail">
+		The event details of the navigation
+	</Property>
+</Properties>
+
+### navigation detail
+
+<Properties>
+	<Property name="navigations.detail.request" type="Request">
+		The navigation request
+	</Property>
+	<Property name="navigations.detail.intent" type="string">
+		The navigation intent ("fetch", "reload", or "transition").
+	</Property>
+	<Property name="navigations.detail.data">The navigation data.</Property>
+</Properties>

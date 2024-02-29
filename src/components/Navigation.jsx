@@ -231,10 +231,9 @@ export const navigation = [
 	{
 		title: 'Components',
 		links: [
-			{ title: 'Router', href: '/components/router' },
 			{ title: 'Link', href: '/components/link' },
 			{ title: 'Form', href: '/components/form' },
-			{ title: 'Location', href: '/components/location' },
+			{ title: 'Router', href: '/components/router' },
 			{ title: 'Request', href: '/components/request' },
 		],
 	},
@@ -253,7 +252,7 @@ export const navigation = [
 			{ title: 'useLoaderResult', href: '/hooks/use-loader-result' },
 			{ title: 'useActionResult', href: '/hooks/use-action-result' },
 			{ title: 'useActionError', href: '/hooks/use-action-error' },
-			{ title: 'usePath', href: '/hooks/use-path' },
+			// { title: 'usePath', href: '/hooks/use-path' },
 			{ title: 'useResolve', href: '/hooks/use-resolve' },
 		],
 	},

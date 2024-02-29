@@ -1,0 +1,38 @@
+# useResolve
+
+A hook to resolve urls like the router.
+
+```javascript
+import { useResolve } from 'react-sprout';
+
+let resolve = useResolve();
+```
+
+<Properties>
+	<Property name="resolve" type="function">
+		A function to resolve urls
+	</Property>
+</Properties>
+
+### Resolve
+
+```javascript
+resolve(path, options);
+```
+
+<Properties>
+	<Property name="path" type="string">
+		The path to resolve
+	</Property>
+	<Property name="options" type="object">
+		The resolve options
+	</Property>
+</Properties>
+
+### Resolve options
+
+<Properties>
+	<Property name="options.relative" type="boolean">
+		A boolean indicating whether to resolve relative to the route.
+	</Property>
+</Properties>

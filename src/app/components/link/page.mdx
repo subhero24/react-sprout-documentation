@@ -1,0 +1,53 @@
+# Link
+
+The Link component is used to navigate around. It has all the same properties as the native [anchor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element, and a few additional ones.
+
+### Additional properties
+
+<Properties>
+	<Property name="relative" type="boolean" defaultValue="true">
+		A boolean indicating whether the href url is relative to the route.
+	</Property>
+	<Property name="push" type="boolean">
+		A boolean indicating whether a new entry in the history stack should be
+		pushed.
+	</Property>
+	<Property name="replace" type="boolean">
+		A boolean indicating whether the current entry in the history stack should
+		be replaced.
+	</Property>
+	<Property name="title" type="string">
+		The document title after navigation.
+	</Property>
+	<Property name="state" type="any">
+		The history state after navigation.
+	</Property>
+	<Property name="sticky" type="boolean" defaultValue="false">
+		A boolean indicating whether the navigation is sticky.
+	</Property>
+	<Property name="reload" type="boolean" defaultValue="false">
+		A boolean indicating whether to reload all data for the navigation.
+	</Property>
+	<Property name="cache" type="boolean" defaultValue="false">
+		A boolean indicating whether the current page should be kept in the
+		back/forward cache.
+	</Property>
+	<Property name="onNavigate" type="function">
+		A callback that is invoked when a navigation is initiated.
+	</Property>
+	<Property name="onCancel" type="function">
+		A callback that is invoked when a navigation is canceled.
+	</Property>
+	<Property name="onNavigateStart" type="function">
+		A callback that is invoked when a navigation is not canceled.
+	</Property>
+	<Property name="onActionError" type="function">
+		A callback that is invoked when a navigation action throws an error.
+	</Property>
+	<Property name="onAbort" type="function">
+		A callback that is invoked when a navigation is aborted.
+	</Property>
+	<Property name="onNavigateEnd" type="function">
+		A callback that is invoked when a navigation is finished.
+	</Property>
+</Properties>

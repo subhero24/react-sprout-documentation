@@ -1,55 +1,68 @@
-export const metadata = {
-	title: 'Router',
-	description: 'description',
-};
-
 # Router
 
-Groups are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different group endpoints you can use to manage groups programmatically. We'll look at how to query, create, update, and delete groups. {{ className: 'lead' }}
+The Router component is created by calling the default export with a routes configuration.
 
-## The group model
+```javascript
+import Routes from 'react-sprout';
 
-The group model contains all the information about your groups, including what contacts are in the group and the group's name, description, and avatar.
+let Router = Routes(
+	<App>
+		<Todos path="todos" />
+		<Todo path="todo/:todoId" />
+	</App>,
+);
+```
+
+The resulting Router component can be rendered anywhere in your application.
+
+```javascript
+function Application() {
+	return <Router />;
+}
+```
 
 ### Properties
 
 <Properties>
-	<Property name="sticky" type="boolean">
-		The default sticky behaviour for all navigations
-	</Property>
 	<Property name="request" type="Request">
-		The request for the router when using it as a controlled component
+		A request when using the router as a controlled component, making the router
+		independent of the browser.
 	</Property>
-	<Property name="delayLoadingMs" type="integer">
-		The amount of milliseconds before navigations are marked as loading.
+	<Property name="defaultRequest" type="Request">
+		An initial request when using the router as an uncontrolled component,
+		making the router independent of the browser.
 	</Property>
-	<Property name="minimumLoadingMs" type="integer">
-		The amount of milliseconds a loading indicator should
+	<Property name="sticky" type="boolean" defaultValue="false">
+		The default sticky behavior for all navigations
 	</Property>
-	<Property name="defaultFormMethod" type="string">
-		Unique identifier for the conversation that belongs to the group.
+	<Property name="dataTransform" type="function">
+		A function to automatically transform navigation data.
 	</Property>
-	<Property name="transformFormData" type="function">
-		An array of contact objects that are members of the group.
+	<Property name="delayLoadingMs" type="integer" defaultValue="30">
+		The amount of milliseconds to delay a loading indicator.
 	</Property>
-	<Property name="onNavigate" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="minimumLoadingMs" type="integer" defaultValue="500">
+		The minimum amount of milliseconds a loading indicator is visible.
 	</Property>
-	<Property name="onCancel" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="defaultFormMethod" type="string" defaultValue="GET">
+		The default method property for forms.
 	</Property>
-	<Property name="onNavigateStart" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="onNavigate" type="function">
+		A callback that is invoked when a navigation is initiated.
 	</Property>
-	<Property name="onError" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="onCancel" type="function">
+		A callback that is invoked when a navigation is canceled.
 	</Property>
-	<Property name="onAborted" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="onNavigateStart" type="function">
+		A callback that is invoked when a navigation is not canceled.
 	</Property>
-	<Property name="onNavigateEnd" type="timestamp">
-		Timestamp of when the group was created.
+	<Property name="onActionError" type="function">
+		A callback that is invoked when a navigation action throws an error.
+	</Property>
+	<Property name="onAbort" type="function">
+		A callback that is invoked when a navigation is aborted.
+	</Property>
+	<Property name="onNavigateEnd" type="function">
+		A callback that is invoked when a navigation is finished.
 	</Property>
 </Properties>
-
----

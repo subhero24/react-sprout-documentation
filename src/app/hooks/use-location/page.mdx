@@ -1,0 +1,21 @@
+# useLocation
+
+A hook to get the current location.
+
+<Info>
+	Always use this hook instead of using `window.location` directly, as
+	concurrent rendering with react will allow multiple concurrent locations to be
+	in use.
+</Info>
+
+```javascript
+import { useLocation } from 'react-sprout';
+
+let location = useLocation();
+```
+
+<Properties>
+	<Property name="location" type="URL">
+		The current location of the router
+	</Property>
+</Properties>

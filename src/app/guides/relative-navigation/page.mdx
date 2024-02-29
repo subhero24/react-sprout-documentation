@@ -65,7 +65,8 @@ This will make the target url of the Link dependent on the current url:
     import { useResolve } from 'react-sprout'
 
     function UpLink(props) {
-    	let href = useResolve('..', { relative: false })
+    	let resolve = useResolve()
+    	let href = resolve('..', { relative: false })
 
     	return <a href={href}>Up</a>
     }

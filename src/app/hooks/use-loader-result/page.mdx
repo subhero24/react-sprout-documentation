@@ -1,0 +1,16 @@
+# useLoaderResult
+
+A hook to retrieve the result of the loader. Use this in a route component of a route with a loader option.
+This hook will suspend the route component while data is loading.
+
+```javascript
+import { useLoaderResult } from 'react-sprout';
+
+let loaderResult = useLoaderResult();
+```
+
+<Properties>
+	<Property name="loaderResult" type="any">
+		The result of the loader
+	</Property>
+</Properties>

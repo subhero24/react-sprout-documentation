@@ -1,0 +1,23 @@
+# useAbort
+
+A hook to abort navigations.
+
+```javascript
+import { useAbort } from 'react-sprout';
+
+let abort = useAbort();
+```
+
+<Properties>
+	<Property name="abort" type="function">
+		A function to abort navigations.
+	</Property>
+</Properties>
+
+### abort
+
+```javascript
+abort(); // abort all navigations
+abort(navigation); // abort a single navigation
+abort(navigations); // abort an array of navigations
+```

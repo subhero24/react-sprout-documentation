@@ -5,8 +5,8 @@ There are a few navigation callbacks to manage the lifecycle of a navigation:
 - onNavigate
 - onCancel
 - onNavigateStart
+- onActionError
 - onAborted
-- onError
 - onNavigateEnd
 
 These callbacks can be used as properties to [Link](/components/link) and [Form](/components/form) elements to be invoked with navigations from these components.
@@ -90,15 +90,15 @@ When a navigation event was canceled, either in the onNavigate callback or in an
 
 When no callback or event handler has prevented the navigation, the onNavigateStart callback will be invoked.
 
+### onActionError(event, error)
+
+When the action of a POST navigation throws an error, the onActionError callback will be invoked
+
 ### onAborted(event, reason)
 
 When the navigation was aborted, the onAborted callback will be invoked.
 
 A navigation can be aborted automatically by the router because it is interrupted by another navigation. Or navigations can be aborted manually with the [useAbort](/hooks/use-abort) hook.
-
-### onError(event, error)
-
-When the action of a POST navigation throws an error, the onError callback will be invoked
 
 ### onNavigateEnd(event)
 
