@@ -222,21 +222,21 @@ export const navigation = [
 			{ title: 'Reload navigation', href: '/guides/reload-navigation' },
 			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
 			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
-			{ title: 'Redirect', href: '/guides/redirecting' },
-			{ title: 'Search loading', href: '/guides/search-loading' },
-			{ title: 'Search matching', href: '/guides/search' },
+			{ title: '# Redirect', href: '/guides/redirecting' },
+			{ title: '# Search loading', href: '/guides/search' },
+			{ title: '# Search matching', href: '/guides/search' },
 		],
 	},
 
 	{
 		title: 'Advanced guides',
 		links: [
-			{ title: 'Paths', href: '/guides/paths' },
+			{ title: '# Paths', href: '/guides/paths' },
 			{ title: 'Errors', href: '/guides/errors' },
 			{ title: 'Requests', href: '/guides/requests' },
 			{ title: 'Transforms', href: '/guides/transforms' },
-			{ title: 'Server api', href: '/guides/api' },
-			{ title: 'Server rendering', href: '/guides/ssr' },
+			{ title: '# Server api', href: '/guides/api' },
+			{ title: '# Server rendering', href: '/guides/ssr' },
 		],
 	},
 	{
