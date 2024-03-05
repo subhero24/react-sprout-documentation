@@ -15,14 +15,25 @@ React-sprout is a router for React.
 
 ## Installation {{ anchor: false }}
 
-To get started, install the react-sprout package in to your application
+<CodeGroup>
+
+```bash {{ title: 'npm' }}
+npm install react-sprout
+```
+
+```bash {{ title: 'yarn' }}
+yarn add react-sprout
+```
+
+</CodeGroup>
 
 ## Usage {{ anchor: false }}
 
-The default export from react-sprout is a function that creates a Router component from a router configuration.
-
 ```javascript
+import React from 'react';
 import Routes from 'react-sprout';
+
+import { createRoot } from 'react-dom/client';
 
 import Home from './home.jsx';
 import Todos from './todos.jsx';
@@ -33,28 +44,16 @@ let Router = Routes(
 		<Todos path="todos" />
 	</>,
 );
-```
 
-The result is a Router component that can be used anywhere in your application.
-
-```javascript
 function Application() {
 	return <Router />;
 }
+
+createRoot(document.getElementById('root')).render(<Application />);
 ```
 
-The Router will render the element of which the `path` property corresponds to the current url.
-
-In this case:
-
-- the url `/home` will make the router render `<Home />`
-- the url `/todos` will make the router render `<Todos />`
-
-<div className="not-prose flex flex-col items-start">
-	<Button href="/guides/routes" variant="text" arrow="right">
-		<>Tell me more about the routes configuration</>
-	</Button>
-	<Button href="/components/router" variant="text" arrow="right">
-		<>Tell me more about the Router element</>
+<div className="not-prose flex flex-col items-end">
+	<Button href="/guides/router" variant="text" arrow="right">
+		Get started
 	</Button>
 </div>

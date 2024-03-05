@@ -2,6 +2,12 @@
 
 All information about the current URL besides splats and params can be found in the `location` object, which is accessible through the [useLocation](/hooks/use-location) hook.
 
+<Info>
+	Always use this hook instead of using `window.location` directly, as
+	concurrent rendering with react causes multiple different locations to exist
+	at the same time.
+</Info>
+
 ```javascript
 function Route() {
 	let location = useLocation()

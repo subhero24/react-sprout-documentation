@@ -1,0 +1,58 @@
+# Transforms
+
+Action handlers typically receive data as a FormData instance. The action handler will most of the time transform the incoming FormData.
+
+```javascript
+async function todosAction({ data }) {
+	let todo = Object.fromEntries(data)
+		...
+}
+```
+
+If all the action handlers transform the data in the same way, the transform function can be specified once as a Router prop.
+
+```javascript
+function Application() {
+	return <Router dataTransform={Object.fromEntries} />;
+}
+
+async function todosAction({ data }) {
+	let todo = data
+		...
+}
+```
+
+The data to the action handler will already be an object with the properties extracted from the FormData.
+
+It can also be used to do more complex preprocessing if wanted;
+
+```javascript
+import entriesToObject from 'entries-to-object';
+
+function Application() {
+	return <Router dataTransform={entriesToObject} />;
+}
+
+function CreateUser() {
+	return (
+		<Form action="/users" method="post">
+			<input type="text" name="user.lastname" />
+			<input type="text" name="user.firstname" />
+			<input type="text" name="user.hobbies[]" />
+			<input type="text" name="user.hobbies[]" />
+			<input type="text" name="user.hobbies[]" />
+			<input type="text" name="user.address.city" />
+			<input type="text" name="user.address.street" />
+			<button name="intent" value="create user">Create user</button>
+		</Form>
+	);
+}
+
+async function usersAction({ data }) {
+	let intent = data.intent
+	if (intent === 'create user') {
+		let { lastname, firstname, hobbies, address } = data.user
+			...
+	}
+}
+```

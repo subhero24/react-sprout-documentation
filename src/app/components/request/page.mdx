@@ -2,48 +2,6 @@
 
 A component to provide an external request for the Router component.
 
-This component is useful when doing server side rendering or creating a router that is independent of the browser.
-
-<Info>
-The Router component itself also has properties [`request`](/components/router#request) and [`defaultRequest`](/components/router#default-request) to provide an external request,
-but adding the request as a property to the `<Router>` element can be inconvenient when the `<Router>` element is used deep inside the component tree.
-</Info>
-
-```javascript
-import { Request } from 'react-sprout';
-
-function Application() {
-	return (
-		<html>
-			<head>...</head>
-			<body>
-				<Router />
-			</body>
-		</html>
-	);
-}
-
-<Request value={someRequest}>
-	<Application />
-</Request>;
-```
-
-<Warning>
-In some environments a global `Request` variable already exists. Be careful when importing the Request component as it will override the global variable.
-It may be needed to rename the component while importing.
- 
-```javascript
-import { Request as RequestProvider } from 'react-sprout'
-
-let someRequest = new Request('/some/url')
-
-<RequestProvider value={someRequest}>
-	<Application />
-</RequestProvider>
-```
-
-</Warning>
-
 ### Properties
 
 <Properties>

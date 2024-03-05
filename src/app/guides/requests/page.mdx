@@ -1,0 +1,108 @@
+# Requests
+
+When using a router in the a browser, it will by default use the browser request url to render and update after navigation.
+
+To make a router independent of the browser, a request must be passed to the router element as a prop.
+There are two properties used to pass a request to the router; `request` and `defaultRequest`.
+These are similar to how controlled and uncontrolled inputs work with `value` and `defaultValue`.
+
+### Controlled router
+
+A controlled router uses the `request` prop to control what the router renders.
+
+```javascript
+function Application() {
+	return <Router request={request} />;
+}
+```
+
+If you want this router to navigate to another page, the request prop needs to change externally.
+
+```javascript
+function Application() {
+	let [request, setRequest] = useState(() => new Request('/some/url'));
+
+	function handleNavigate(event) {
+		setRequest(event.detail.request);
+	}
+
+	return <Router request={request} onNavigate={handleNavigate} />;
+}
+```
+
+### Uncontrolled router
+
+An uncontrolled router uses the `defaultRequest` prop to control what the router initially renders, but will render other pages when navigating internally without externally changing the request.
+
+```javascript
+function Application() {
+	return <Router defaultRequest={request} />;
+}
+```
+
+<hr />
+
+The `Request` component can also be used to pass a request to the router instead of passing the request as a prop to the router element.
+
+It also has the same controlled and uncontrolled variants with the `value` and `defaultValue` prop.
+
+```javascript
+function Application() {
+	return (
+		<Request value={request}>
+			<Router />
+		</Request>
+	);
+}
+```
+
+```javascript
+function Application() {
+	return (
+		<Request defaultValue={request}>
+			<Router />
+		</Request>
+	);
+}
+```
+
+<Warning>
+	In some environments a global `Request` variable already exists. Be careful when importing the Request component as it will override the global variable.
+	It may be needed to rename the component while importing.
+	
+	```javascript
+	import { Request as RequestProvider } from 'react-sprout'
+
+    let request = new Request('/some/url')
+
+    function Application() {
+    	return (
+    		<RequestProvider defaultValue={request}>
+    			<Router />
+    		</RequestProvider>
+    	);
+    }
+    ```
+
+</Warning>
+
+This is more convenient when the router element is burried deep down inside the component tree.
+
+It is also often used in server side rendering. The server can wrap the whole application in a `<Request>` element and be done with it.
+
+```javascript
+function Application() {
+	return (
+		<html>
+			<head>...</head>
+			<body>
+				<Router />
+			</body>
+		</html>
+	);
+}
+
+<Request value={request}>
+	<Application />
+</Request>;
+```

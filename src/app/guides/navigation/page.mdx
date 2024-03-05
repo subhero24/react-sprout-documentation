@@ -1,5 +1,7 @@
 # Navigation
 
+There are 3 possible ways to navigate around: `Links`, `Forms`, and the `navigate` function.
+
 ## Links {{ anchor: false }}
 
 The `Link` component is a more powerful alternative for the default [anchor](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) element.
@@ -11,6 +13,12 @@ function Route() {
 	return <Link href="/some/url">navigate</Link>;
 }
 ```
+
+<div className="not-prose flex flex-col items-end">
+	<Button href="/components/link" variant="text" arrow="right">
+		Link element api
+	</Button>
+</div>
 
 If you need a `Link` with loading states and navigation information, there is a [useLink](/hooks/use-link) hook.
 
@@ -24,12 +32,9 @@ function Route() {
 }
 ```
 
-<div className="not-prose flex flex-col items-start">
-	<Button href="/components/link" variant="text" arrow="right">
-		<>Tell me more about the Link element</>
-	</Button>
-	<Button href="/guides/loading-states" variant="text" arrow="right">
-		<>Tell me more about the loading states</>
+<div className="not-prose flex flex-col items-end">
+	<Button href="/hooks/use-link" variant="text" arrow="right">
+		useLink hook api
 	</Button>
 </div>
 
@@ -49,6 +54,12 @@ function Route() {
 }
 ```
 
+<div className="not-prose flex flex-col items-end">
+	<Button href="/components/form" variant="text" arrow="right">
+		Form element api
+	</Button>
+</div>
+
 If you need a `Form` with loading states and navigation information, there is a [useForm](/hooks/use-form) hook.
 
 ```javascript
@@ -65,18 +76,20 @@ function Route() {
 }
 ```
 
-<div className="not-prose flex flex-col items-start">
-	<Button href="/components/form" variant="text" arrow="right">
-		<>Tell me more about the Form element</>
-	</Button>
-	<Button href="/guides/loading-states" variant="text" arrow="right">
-		<>Tell me more about the loading states</>
+<div className="not-prose flex flex-col items-end">
+	<Button href="/hooks/use-form" variant="text" arrow="right">
+		useForm hook api
 	</Button>
 </div>
 
 ## Navigate {{ anchor: false }}
 
 For navigating programmatically, there is a [useNavigate](/hooks/use-navigate) hook.
+
+<Info>
+	If you need to navigate as a response to a user click, using a Link or Form is
+	preferred.
+</Info>
 
 ```javascript
 import { useNavigate } from 'react-sprout';
@@ -96,16 +109,8 @@ function Route() {
 }
 ```
 
-<Info>
-	If you need to navigate as a response to a user click, using a Link or Form is
-	preferred.
-</Info>
-
-<div className="not-prose flex flex-col items-start">
+<div className="not-prose flex flex-col items-end">
 	<Button href="/hooks/use-navigate" variant="text" arrow="right">
-		<>Tell me more about the useNavigate hook</>
-	</Button>
-	<Button href="/guides/loading-states" variant="text" arrow="right">
-		<>Tell me more about the loading states</>
+		useNavigate hook api
 	</Button>
 </div>

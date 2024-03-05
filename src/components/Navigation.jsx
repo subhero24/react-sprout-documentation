@@ -194,38 +194,49 @@ function NavigationGroup({ group, className }) {
 
 export const navigation = [
 	{
-		title: 'Starting guides',
+		title: 'Getting started',
 		links: [
+			{ title: 'Router', href: '/guides/router' },
 			{ title: 'Routes', href: '/guides/routes' },
 			{ title: 'Navigation', href: '/guides/navigation' },
-			{ title: 'Params', href: '/guides/params' },
-			{ title: 'Splats', href: '/guides/splats' },
-			{ title: 'Loaders', href: '/guides/loaders' },
-			{ title: 'Actions', href: '/guides/actions' },
-			{ title: 'History', href: '/guides/history' },
-			{ title: 'Location', href: '/guides/location' },
 		],
 	},
 	{
 		title: 'Basic guides',
 		links: [
-			{ title: 'Loading states', href: '/guides/loading-states' },
-			{ title: 'Sticky navigation', href: '/guides/sticky-navigation' },
-			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
-			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
-			{ title: 'Navigation callbacks', href: '/guides/callbacks' },
-			{ title: 'Reloading', href: '/guides/reloading' },
-			{ title: 'Redirecting', href: '/guides/redirecting' },
-			// { title: 'Search parameters', href: '/guides/search' },
+			{ title: 'Params', href: '/guides/params' },
+			{ title: 'Splats', href: '/guides/splats' },
+			{ title: 'Loaders', href: '/guides/loaders' },
+			{ title: 'Actions', href: '/guides/actions' },
+			{ title: 'Location', href: '/guides/location' },
+			{ title: 'History', href: '/guides/history' },
+			{ title: 'Callbacks', href: '/guides/callbacks' },
 		],
 	},
 	{
+		title: 'Intermediate guides',
+		links: [
+			{ title: 'Root routes', href: '/guides/roots' },
+			{ title: 'Loading states', href: '/guides/loading-states' },
+			{ title: 'Sticky navigation', href: '/guides/sticky-navigation' },
+			{ title: 'Reload navigation', href: '/guides/reload-navigation' },
+			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
+			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
+			{ title: 'Redirect', href: '/guides/redirecting' },
+			{ title: 'Search loading', href: '/guides/search-loading' },
+			{ title: 'Search matching', href: '/guides/search' },
+		],
+	},
+
+	{
 		title: 'Advanced guides',
 		links: [
-			{ title: 'Roots', href: '/guides/roots' },
-			// { title: 'Route paths', href: '/guides/paths' },
-			// { title: 'Server routes', href: '/guides/server' },
-			// { title: 'Server rendering', href: '/guides/ssr' },
+			{ title: 'Paths', href: '/guides/paths' },
+			{ title: 'Errors', href: '/guides/errors' },
+			{ title: 'Requests', href: '/guides/requests' },
+			{ title: 'Transforms', href: '/guides/transforms' },
+			{ title: 'Server api', href: '/guides/api' },
+			{ title: 'Server rendering', href: '/guides/ssr' },
 		],
 	},
 	{

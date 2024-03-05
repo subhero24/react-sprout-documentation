@@ -2,6 +2,12 @@
 
 Information about the history is accessible through the [useHistory](/hooks/use-history) hook.
 
+<Info>
+	Always use this hook instead of using `window.history` directly, as concurrent
+	rendering with react causes multiple different histories to exist at the same
+	time.
+</Info>
+
 ```javascript
 function Route() {
 	let history = useHistory()

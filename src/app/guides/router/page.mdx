@@ -1,0 +1,38 @@
+# Router
+
+The default export from react-sprout is a function that creates a Router component from a set of routes.
+
+```javascript
+import Routes from 'react-sprout';
+
+import Home from './home.jsx';
+import Todos from './todos.jsx';
+
+let Router = Routes(
+	<>
+		<Home path="home" />
+		<Todos path="todos" />
+	</>,
+);
+```
+
+The result is a Router component that can be used anywhere in your application.
+
+```javascript
+function Application() {
+	return <Router />;
+}
+```
+
+<div className="not-prose flex items-center justify-end">
+	<Button href="/components/router" variant="text" arrow="right">
+		Router element api
+	</Button>
+</div>
+
+The Router will render the element of which the `path` property corresponds to the current url.
+
+In this case:
+
+- the url `/home` will make the router render `<Home />`
+- the url `/todos` will make the router render `<Todos />`

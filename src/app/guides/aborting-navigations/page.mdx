@@ -20,19 +20,24 @@ function Route() {
 }
 ```
 
+<div className="not-prose flex flex-col items-end">
+	<Button href="/hooks/use-abort" variant="text" arrow="right">
+		useAbort hook api
+	</Button>
+</div>
+
 <Info>
 	Be aware that the navigations array from the `useLink`, `useForm`, and `useNavigate` hooks are only those
-	navigations that were initiated from the Link, Form, or navigate function from
-	the hook itself. If you need all current navigations globally, there is a
-	seperate [useNavigations](/hooks/use-navigations) hook to do just that.
+	navigations that were initiated from the Link, Form, or navigate function from the hook itself.
+
+    If you need to abort all navigations globally, call abort without navigations.
 
     ```javascript
     function Route() {
     	let abort = useAbort()
-    	let navigations = useNavigations()
 
     	function handleAbortButtonClick() {
-    		abort(navigations) // aborts all navigations globally
+    		abort() // aborts all navigations globally
     	}
 
     	...

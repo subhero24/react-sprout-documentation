@@ -1,4 +1,4 @@
-# Reloading
+# Reload navigation
 
 When navigating to a new page, routes that are present in the layout of both pages will reuse their loader result without invoking the loader again.
 
@@ -31,8 +31,6 @@ A more elegant way to specify the reload property on a Link or Form element is t
 
 </Info>
 
-### Reloading the current page
-
 Not specifying a target url will default to the current url, effectively reloading the current page.
 
 ```javascript
@@ -41,6 +39,12 @@ Not specifying a target url will default to the current url, effectively reloadi
 <Form reload>
 	<button>Reload</button>
 </Form>
+```
+
+Or reloading the current page programmatically;
+
+```javascript
+navigate({ reload: true });
 ```
 
 <Warning>
@@ -52,15 +56,9 @@ Not specifying a target url will default to the current url, effectively reloadi
 	would be equivalent.
 </Warning>
 
-Or reloading the current page programmatically;
-
-```javascript
-navigate({ reload: true });
-```
-
 <Info>
-	Reloading all route loaders will suspend the current page, as there is no data immediately available to render the page.
-	To improve the user experience, reload the route loaders in the background with [sticky navigation](/guides/sticky-navigation):
+	Navigating with reload will resuspend route components, showing loading indicators again for user interface that was already present. 
+	So improving these navigations with [sticky](/guides/sticky-navigation) behavior is especially important.
 
     ```javascript
     <Link sticky reload>Reload</Link>
@@ -86,5 +84,11 @@ navigate({ reload: true });
     	</>
     }
     ```
+
+    <div className="not-prose flex flex-col items-end">
+    	<Button href="/guides/sticky-navigation" variant="text" arrow="right">
+    		sticky navigation guide
+    	</Button>
+    </div>
 
 </Info>

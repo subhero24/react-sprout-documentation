@@ -38,3 +38,20 @@ A more elegant way to specify the sticky property on a Link or Form element is t
 ```
 
 </Info>
+
+Making a navigation sticky will load data in the background. By default, the user will have no idea something is happening.
+So be sure to implement some user feedback with the [loading states](/guides/loading-states) of these navigations.
+
+The default sticky behavior of all navigations can be set with the `sticky` prop on the router element.
+
+```javascript
+function Application() {
+	return <Router sticky />;
+}
+```
+
+<div className="not-prose flex flex-col items-end">
+	<Button href="/components/router" variant="text" arrow="right">
+		Router element api
+	</Button>
+</div>
