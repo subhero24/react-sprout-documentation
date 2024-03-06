@@ -1,6 +1,6 @@
 # Redirecting
 
-### Redirecting a request
+### Redirecting a route
 
 If the rules of the redirect are known beforehand, you can redirect directly from the router configuration with the `Redirect` route component.
 
@@ -15,22 +15,26 @@ let Router = Routes(
 );
 ```
 
-This configuration will redirect "/app/people" to "/app/users".
+It will redirect `/app/people` to `/app/users`.
 
 Splats and params are also available to construct the target url.
 
 ```javascript
-<Redirect path="app/:language/admin/pages/*" to="content/pages/:language/*" />
+<Redirect path="people/:userId" to="users/:userId" />
+```
+
+```javascript
+<Redirect path="people/*" to="users/*" />
 ```
 
 Or pass a function to construct a more dynamic target url.
 
 ```javascript
+<Redirect path="page" to={PageAorB} />;
+
 function PageAorB({ splat, params }) {
 	return Math.random() < 0.5 ? 'pageA' : 'pageB';
 }
-
-<Redirect path="page" to={PageAorB} />;
 ```
 
 ### Redirecting a navigation
