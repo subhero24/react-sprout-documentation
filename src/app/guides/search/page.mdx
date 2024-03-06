@@ -7,7 +7,7 @@ It allows you to add extra parameters to a url.
 
 </Note>
 
-The search and searchParams are attributes of the `location` [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL).
+The search and searchParams are available in route components as attributes of the `location` [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL).
 
 ```javascript
 function Route() {
@@ -21,130 +21,104 @@ function Route() {
 
 SearchParams is an instance of [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), so take a look at this native web platform api if you are not familiar.
 
-<Warning>
+### Loaders with search parameters
 
-It is required to specify the search parameters for each route in the routes configuration!
-Search parameters that are not specified in the routes configuration are not accessible to route components!
+<Error>
+	Search parameters that are not specified in the route path will not be
+	available in the loader!
+</Error>
 
-</Warning>
-
-<hr />
-
+Routes that load data based on search params need to specify the search parameters they depend on.
 To specify search parameters for route components, the same search string syntax as for urls is used in the routes configuration:
 
 ```javascript
 let Router = Routes(
-	<Root>
-		<Users path="users?filter" />
-	</Root>,
-)
+	<App path="app">
+		<Todos path="todos?filter" loader={todosLoader} />
+	</App>,
+);
 
-function Users() {
-	let location = useLocation()
-
-	let filter = location.searchParams.get('filter')
+function todosLoader({ url }) {
+	let filter = url.searchParams.get('filter');
 		...
 }
 ```
-
-Note the `?filter` in the path of the `Users` route. It allows the `Users` route component to access the `filter` search parameter of the url.
 
 Or if the route needs multiple search parameters:
 
 ```javascript
 let Router = Routes(
-	<Root>
-		<Users path="users?order&filter" />
-	</Root>,
-)
-
-function Users() {
-	let location = useLocation()
-
-	let order = location.searchParams.get('order')
-	let filter = location.searchParams.get('filter')
-		...
-}
+	<App>
+		<Todos path="todos?order&filter" loader={todosLoader} />
+	</App>,
+);
 ```
 
-You can get all the search parameters in your route component if you do not specify any specific search parameters at all.
+If you really need access to all search parameters in the loader, do not specify any specific search parameters at all.
 
 ```javascript
 let Router = Routes(
-	<Root>
-		<Users path="users?" />
-	</Root>,
-)
-
-function Users() {
-	let location = useLocation()
-
-	let allSearchParams = location.searchParams
-		...
-}
+	<App>
+		<Todos path="todos?" loader={todosLoader} />
+	</App>,
+);
 ```
 
 <Warning>
 	Using all search parameters in a route component should be avoided as much as
 	possible. Only use this if you do not know the names of your parameters in
 	advance. Explicitely stating the search parameters of your route like
-	`/users?order&filter` is always preferred to using the general `/users?`.
+	`/todos?order&filter` is always preferred to using the general `/todos?`.
 </Warning>
 
-<hr />
-
 <Info>
-	The requirement to specify the search parameters dependencies explicitely in the routes configuration has a lot of advantages.
-	It allows the search parameters to take part in the route matching strategy, which is explained further in this guide.
-	It also allows the router to optimize data loading (read more about data loading in the [loaders guide](/guides/loaders)).
+	The requirement to specify the search parameters dependencies explicitely in the routes configuration allows the router to optimize data loading.
 		
 	```javascript
 	let Router = Routes(
-		<Root path="/?language">
-			<Users path="users?filter" />
-		</Root>,
+		<App path="app?language" loader={appLoader}>
+			<Todos path="todos?filter" loader={todosLoader} />
+		</App>,
 	)
     ```
 
-    When the url changes from `/users?language=fr&filter=john` to `/users?language=en&filter=john` only the `language` search parameter has changed.
-    The `Root` route depends on the value of the `language` search parameter, and its data will have to be reloaded.
-    The `Users` route however does not depend on the value of the `language` search parameter, and its data will not have to be reloaded.
-    Skipping these unneeded data reloads yields a substantial page load improvement.
+    When the url changes from `/app/todos?language=fr&filter=today` to `/app/todos?language=en&filter=today` only the `language` search parameter has changed.
+    The `App` route depends on the value of the `language` search parameter, and its data will have to be reloaded.
+    The `Todos` route however does not depend on the value of the `language` search parameter, and its data will not have to be reloaded.
+    Skipping these unneeded data reloads yields substantial page load improvements.
 
-
-    This explains why using a path like `/users?` is not recommended. The data of this route has to be reloaded with every search parameter change,
-    even if the search parameter was irrelevant for the route component.
+    This explains why using a path like `todos?` is not recommended. The data of this route has to be reloaded with every search parameter change,
+    even if the search parameter was irrelevant for the loader of the route.
 
 </Info>
 
-<hr />
-
 ### Matching with search parameters
 
-Search parameters can take part in the matching strategy of the routes.
+Search parameters can also take part in the matching strategy of the routes.
 
 Specifying search parameters with assigned values will only match the corresponding route if the url also has the same search parameter with that value.
 
 ```javascript
 let Router = Routes(
-	<Root>
-		<Users path="users?filter" />
-		<Admins path="users?filter=admin" />
-	</Root>,
+	<App path="app">
+		<Todos path="todos?filter" />
+		<Today path="todos?filter=today" />
+		<Tomorrow path="todos?filter=tomorrow" />
+	</App>,
 );
 ```
 
-If the url is `/users` or `/users?filter=john` the router will render the `Users` route. If the url is `/users?filter=admin` the router will render the `Admins` route.
+If the url is `/app/todos` or `/app/todos?filter=something` the router will render the `Todos` route. If the url is `/app/todos?filter=today` the router will render the `Today` route, and a url `/app/todos?filter=tomorrow` will render the `Tomorrow` route component.
 
 The search parameter value can also be omitted if you want to allow any value, matching only when the search parameter is present, whatever its value.
 
 ```javascript
 let Router = Routes(
-	<Root>
-		<Users path="users" />
-		<Filter path="users?filter=" />
-	</Root>,
+	<App path="app">
+		<Todos path="todos" />
+		<FilteredTodos path="todos?filter=" />
+	</App>,
 );
 ```
 
-When the `filter` search parameter is present, it will render the `Filter` route. If not, the `Users` route wil be rendered.
+When the `filter` search parameter is present, it will render the `FilteredTodos` route. If not, the `Todos` route wil be rendered.

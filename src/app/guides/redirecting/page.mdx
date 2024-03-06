@@ -1,5 +1,40 @@
 # Redirecting
 
+### Redirecting a request
+
+If the rules of the redirect are known beforehand, you can redirect directly from the router configuration with the `Redirect` route component.
+
+```javascript
+import Routes, { Redirect } from 'react-sprout';
+
+let Router = Routes(
+	<App path="app">
+		<Users path="users" />
+		<Redirect path="people" to="users" />
+	</App>,
+);
+```
+
+This configuration will redirect "/app/people" to "/app/users".
+
+Splats and params are also available to construct the target url.
+
+```javascript
+<Redirect path="app/:language/admin/pages/*" to="content/pages/:language/*" />
+```
+
+Or pass a function to construct a more dynamic target url.
+
+```javascript
+function PageAorB({ splat, params }) {
+	return Math.random() < 0.5 ? 'pageA' : 'pageB';
+}
+
+<Redirect path="page" to={PageAorB} />;
+```
+
+### Redirecting a navigation
+
 Sometimes the target url of the navigation is not known in advance.
 
 Suppose we have a small todo application with a form to create todos.

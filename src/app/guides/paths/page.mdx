@@ -1,16 +1,20 @@
 # Paths
 
-The route `path` property allows more complex matching than just url segments.
+The route `path` property has some more advanced tricks up its sleeve.
 
-Trailing slashes for example need no special treatment. If you want a trailing slash, write them in the route configuration.
+<Error>
+	Some `path` tricks are very powerful for all kinds of things. But with great
+	power comes great responsibility. Parent segments and absolute paths are not
+	necessarily recommended practice. Use them wisely.
+</Error>
+
+Specifying trailing slashes for example. They need no special treatment, if you want trailing slashes, just write them in the route configation.
 
 ```javascript
 <Todos path="todos/">
 ```
 
-This configuration will only match `/todos/` but not `/todos`.
-
-Some filesystem syntax is also supported.
+Some filesystem navigation syntax like `.` and `..` is also supported.
 
 ```javascript
 <TodosLayout path="todos">
@@ -18,16 +22,6 @@ Some filesystem syntax is also supported.
 	<Todo path=":todoId" />
 </TodosLayout>
 ```
-
-The Todos route component will render at `/todos/`.
-
-<Error>
-	The following `path` tricks are very powerful for all kinds of things. But
-	with great power comes great responsibility. They are not necessarily
-	recommended practice. Use them wisely.
-</Error>
-
-The parent operator `..` from the filesystem syntax is also supported.
 
 ```javascript
 <App path=":language">
@@ -42,9 +36,7 @@ Or combined with the splat to match the last segment of an url.
 <File path="files/*/../2024" />
 ```
 
-The File route component wil render at any url starting with `files` and ending in `2024`, like `files/2024` and `files/documents/01/05/2024`.
-
-You can even use absolute paths.
+Even absolute paths are allowed.
 
 ```javascript
 <App path=":language">

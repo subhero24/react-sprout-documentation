@@ -221,17 +221,16 @@ export const navigation = [
 			{ title: 'Sticky navigation', href: '/guides/sticky-navigation' },
 			{ title: 'Reload navigation', href: '/guides/reload-navigation' },
 			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
+			{ title: 'Search parameters', href: '/guides/search' },
 			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
-			{ title: '# Redirect', href: '/guides/redirecting' },
-			{ title: '# Search loading', href: '/guides/search' },
-			{ title: '# Search matching', href: '/guides/search' },
+			{ title: 'Redirecting', href: '/guides/redirecting' },
 		],
 	},
 
 	{
 		title: 'Advanced guides',
 		links: [
-			{ title: '# Paths', href: '/guides/paths' },
+			{ title: 'Paths', href: '/guides/paths' },
 			{ title: 'Errors', href: '/guides/errors' },
 			{ title: 'Requests', href: '/guides/requests' },
 			{ title: 'Transforms', href: '/guides/transforms' },
