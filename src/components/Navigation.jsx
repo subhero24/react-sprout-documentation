@@ -218,12 +218,13 @@ export const navigation = [
 		links: [
 			{ title: 'Root routes', href: '/guides/roots' },
 			{ title: 'Loading states', href: '/guides/loading-states' },
-			{ title: 'Sticky navigations', href: '/guides/sticky-navigation' },
-			{ title: 'Reload navigations', href: '/guides/reload-navigation' },
+			{ title: 'Sticky navigations', href: '/guides/sticky-navigations' },
+			{ title: 'Reload navigations', href: '/guides/reload-navigations' },
 			{ title: 'Relative navigation', href: '/guides/relative-navigation' },
 			{ title: 'Search parameters', href: '/guides/search' },
-			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
 			{ title: 'Redirecting', href: '/guides/redirecting' },
+			{ title: 'Aborting navigations', href: '/guides/aborting-navigations' },
+			{ title: 'Canceling navigations', href: '/guides/canceling-navigations' },
 		],
 	},
 

@@ -1,0 +1,27 @@
+# Canceling navigations
+
+Navigations can be cancelled from the `onNavigate` callback.
+
+```javascript
+function Route() {
+	let [Form, busy, loading, navigations] = useForm();
+
+	function handleNavigate(event) {
+		event.preventDefault();
+	}
+
+	return (
+		<>
+			<Form method="post" onNavigate={handleNavigate}>
+				...
+			</Form>
+		</>
+	);
+}
+```
+
+<div className="not-prose flex flex-col items-end">
+	<Button href="/guides/callbacks" variant="text" arrow="right">
+		callbacks guide
+	</Button>
+</div>
