@@ -3,7 +3,7 @@
 There are a few navigation callbacks to manage the lifecycle of a navigation:
 
 - onNavigate
-- onCancel
+- onCanceled
 - onNavigateStart
 - onActionError
 - onAborted
@@ -16,10 +16,10 @@ function Route() {
 	let [Link, busy, loading, navigations] = useLink()
 
 	function onNavigate(event) { ... }
-	function onCancel(event) { ... }
+	function onCanceled(event) { ... }
 	...
 
-	return <Link href="/" onNavigate={onNavigate} onCancel={onCancel}>Navigate</Link>
+	return <Link href="/" onNavigate={onNavigate} onCanceled={onCanceled}>Navigate</Link>
 }
 ```
 
@@ -28,10 +28,10 @@ function Route() {
 	let [Form, busy, loading, navigations] = useForm()
 
 	function onNavigate(event) { ... }
-	function onCancel(event) { ... }
+	function onCanceled(event) { ... }
 	...
 
-	return <Form action="/" onNavigate={onNavigate} onCancel={onCancel}>
+	return <Form action="/" onNavigate={onNavigate} onCanceled={onCanceled}>
 		...
 	</Form>
 }
@@ -45,10 +45,10 @@ function Route() {
 
     useEffect(() => {
     	function onNavigate() { ... }
-    	function onCancel() { ... }
+    	function onCanceled() { ... }
 
     	setTimeout(() => {
-    		navigate("/", { onNavigate, onCancel })
+    		navigate("/", { onNavigate, onCanceled })
     	}, 5000)
     }, [])
 
@@ -70,10 +70,10 @@ let Router = Routes(
 
 function Application() {
 	function onNavigate(event) { ... }
-	function onCancel(event) { ... }
+	function onCanceled(event) { ... }
 	...
 
-	return <Router onNavigate={onNavigate} onCancel={onCancel} />
+	return <Router onNavigate={onNavigate} onCanceled={onCanceled} />
 }
 
 ```
@@ -82,9 +82,9 @@ function Application() {
 
 When a navigation is requested the onNavigate callback is invoked with a navigation event. Use this callback to cancel some or all navigation events by calling `preventDefault` on the navigation event.
 
-### onCancel(event)
+### onCanceled(event)
 
-When a navigation event was canceled, either in the onNavigate callback or in an event listener for `navigate` events, the onCancel callback will be invoked.
+When a navigation event was canceled, either in the onNavigate callback or in an event listener for `navigate` events, the onCanceled callback will be invoked.
 
 ### onNavigateStart(event)
 
