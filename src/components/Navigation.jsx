@@ -269,15 +269,7 @@ export const navigation = [
 	},
 	// {
 	// 	title: 'Examples',
-	// 	links: [
-	// 		{ title: 'Authentication', href: '/examples/authentication' },
-	// 		{ title: 'Loading states', href: '/examples/loading-states' },
-	// 		{ title: 'Optimistic ui', href: '/examples/optimistic-ui' },
-	// 	],
-	// },
-	// {
-	// 	title: 'Support',
-	// 	links: [{ title: 'FAQ', href: '/faq' }],
+	// 	links: [{ title: 'Optimistic ui', href: '/examples/optimistic-ui' }],
 	// },
 ];
 
