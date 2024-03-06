@@ -1,48 +1,56 @@
-absoute relative path properties
-trailing slashes
+# Paths
 
-Advanced splat usage
+The route `path` property allows more complex matching than just url segments.
+
+Trailing slashes for example need no special treatment. If you want a trailing slash, write them in the route configuration.
 
 ```javascript
-<Root path="/*/../test">
-    		<Files path="files/*">
-    	</Root>
+<Todos path="todos/">
 ```
 
-There are no special rules for urls with a trailing `/`, if your url needs to end in a slash, just write them in the routes.
-This configuration will only a matching url for `/admin/users/`.
+This configuration will only match `/todos/` but not `/todos`.
+
+Some filesystem syntax is also supported.
 
 ```javascript
-let Router = Routes(
-	<Root path="/">
-		<Admin path="admin/">
-			<Users path="users/" />
-		</Admin>
-	</Root>,
-)
+<TodosLayout path="todos">
+	<Todos path="./" />
+	<Todo path=":todoId" />
+</TodosLayout>
 ```
 
-The trailing `/` in the path property of the `Admin` route is competely optional, as the router knows there must be a `/` between `admin` and `users` in the url.
-It thus can be omitted and we will do so for every parent route in the configuration from now on.
+The Todos route component will render at `/todos/`.
+
+<Error>
+	The following `path` tricks are very powerful for all kinds of things. But
+	with great power comes great responsibility. They are not necessarily
+	recommended practice. Use them wisely.
+</Error>
+
+The parent operator `..` from the filesystem syntax is also supported.
 
 ```javascript
-let Router = Routes(
-	<Root path="/">
-		<Admin path="admin">
-			<Users path="users/" />
-		</Admin>
-	</Root>,
-)
+<App path=":language">
+	<Todos path="todos" />
+	<FrenchTodos path="../fr/todos" />
+</App>
 ```
 
-Even the path property from the `Root` route is not necessary as matching will always start from the beginning of the url. So the idiomatic way of writing this config would be:
+Or combined with the splat to match the last segment of an url.
 
 ```javascript
-let Router = Routes(
-	<Root>
-		<Admin path="admin">
-			<Users path="users/" />
-		</Admin>
-	</Root>,
-)
+<File path="files/*/../2024" />
+```
+
+The File route component wil render at any url starting with `files` and ending in `2024`, like `files/2024` and `files/documents/01/05/2024`.
+
+You can even use absolute paths.
+
+```javascript
+<App path=":language">
+	<Admin path="admin">
+		<Users path="users/:userId">
+		<FirstUser path="/en/admin/users/1" />
+	</Admin>
+</App>
 ```
