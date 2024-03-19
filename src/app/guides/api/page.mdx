@@ -28,17 +28,17 @@ application.listen(4000);
 As this code runs on the server, you can directly access the database in the actions and loaders
 
 ```javascript
-export function loader(request) {
+export function loader({ request }) {
 	return request.db.all(`SELECT * FROM todos`);
 }
 ```
 
-As there is no server side rendering the route components will be ignored. An empty route component can be used.
+As nothing is rendered on the server the route component itself will be ignored. An empty route component can be used.
 
 ```javascript
 export default function Todos() {}
 
-export function loader(request) {
+export function loader({ request }) {
 	return request.db.all(`SELECT * FROM todos`);
 }
 ```
@@ -55,7 +55,7 @@ let Router = Routes({
 });
 ```
 
-On the client, not specifyign an action or loader implementation will use the server api of the corresponding server route.
+On the client, not specifying an action or loader implementation will use the server api of the corresponding server route.
 
 ```javascript
 import Routes from 'react-sprout';
