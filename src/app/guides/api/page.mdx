@@ -1,0 +1,71 @@
+# Server api
+
+When specifying actions and loaders on the client, you have to call an existing api to get these actions and loaders to do something on the server.
+
+If you do not have an existing api yet, you can choose to specify the actions and loaders on the server, and let react sprout create the api for you.
+
+```javascript
+import Express from 'express';
+import Routes from 'react-sprout/express';
+
+import Root, { action as rootAction } from './routes/root.js';
+import Todo, { loader as todoLoader } from './routes/todo.js';
+import Todos, { loader as todosLoader } from './routes/todos.js';
+
+let Router = Routes(
+	<Root action={rootAction}>
+		<Todo path="todos/:todoId" loader={todoLoader} />
+		<Todos path="todos" loader={todosLoader} />
+	</Root>,
+);
+
+let application = Express();
+
+application.use(Router);
+application.listen(4000);
+```
+
+As this code runs on the server, you can directly access the database in the actions and loaders
+
+```javascript
+export function loader(request) {
+	return request.db.all(`SELECT * FROM todos`);
+}
+```
+
+As there is no server side rendering the route components will be ignored. An empty route component can be used.
+
+```javascript
+export default function Todos() {}
+
+export function loader(request) {
+	return request.db.all(`SELECT * FROM todos`);
+}
+```
+
+If you prefer not to create empty route components, specifying the routes as plain objects is also supported:
+
+```javascript
+let Router = Routes({
+	action: rootAction,
+	children: [
+		{ path: 'todos/:todoId', loader: todoLoader },
+		{ path: 'todos', loader: todosLoader },
+	],
+});
+```
+
+On the client, not specifyign an action or loader implementation will use the server api of the corresponding server route.
+
+```javascript
+import Routes from 'react-sprout';
+
+let Router = Routes(
+	<Root action>
+		<Todo path="todos/:todoId" loader />
+		<Todos path="todos" loader />
+	</Root>,
+);
+```
+
+You will need to keep the routes from the server api in sync with the routes used in the client.

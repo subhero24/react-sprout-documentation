@@ -1,0 +1,23 @@
+# Server rendering
+
+When server side rendering, there is no browser to let the router know what to render.
+The router will complain by throwing an error saying there is no request available.
+
+Wrap your application on the server with a `<Request>` element, to provide the router with a request.
+
+```javascript
+import { Request } from 'react-sprout';
+import { renderToString } from 'react-dom/server';
+
+let html = renderToString(
+	<Request defaultValue={request}>
+		<Application />
+	</Request>,
+);
+```
+
+<div className="not-prose flex flex-col items-end">
+	<Button href="/guides/requests" variant="text" arrow="right">
+		Requests
+	</Button>
+</div>

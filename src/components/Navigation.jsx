@@ -50,11 +50,7 @@ function NavLink({
 			)}
 		>
 			<span className="truncate">{children}</span>
-			{tag && (
-				<Tag variant="small" color="zinc">
-					{tag}
-				</Tag>
-			)}
+			{tag && <Tag variant="small">{tag}</Tag>}
 		</Link>
 	);
 }
@@ -153,7 +149,11 @@ function NavigationGroup({ group, className }) {
 				<ul role="list" className="border-l border-transparent">
 					{group.links.map((link) => (
 						<motion.li key={link.href} layout="position" className="relative">
-							<NavLink href={link.href} active={link.href === pathname}>
+							<NavLink
+								href={link.href}
+								active={link.href === pathname}
+								tag={link.tag}
+							>
 								{link.title}
 							</NavLink>
 							<AnimatePresence mode="popLayout" initial={false}>
@@ -235,8 +235,8 @@ export const navigation = [
 			{ title: 'Errors', href: '/guides/errors' },
 			{ title: 'Requests', href: '/guides/requests' },
 			{ title: 'Transforms', href: '/guides/transforms' },
-			{ title: '# Server api', href: '/guides/api' },
-			{ title: '# Server rendering', href: '/guides/ssr' },
+			{ title: 'Server api', href: '/guides/api' },
+			{ title: 'Server rendering', href: '/guides/ssr' },
 		],
 	},
 	{
@@ -263,7 +263,6 @@ export const navigation = [
 			{ title: 'useLoaderResult', href: '/hooks/use-loader-result' },
 			{ title: 'useActionResult', href: '/hooks/use-action-result' },
 			{ title: 'useActionError', href: '/hooks/use-action-error' },
-			// { title: 'usePath', href: '/hooks/use-path' },
 			{ title: 'useResolve', href: '/hooks/use-resolve' },
 		],
 	},
