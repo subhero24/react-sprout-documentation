@@ -68,4 +68,17 @@ let Router = Routes(
 );
 ```
 
-You will need to keep the routes from the server api in sync with the routes used in the client.
+<Warning>
+	You will need to keep the routes from the server api in sync with the routes
+	used in the client.
+</Warning>
+
+If you still provide a client side implementation, you can invoke the server api by the `server` function that is passed as a parameter.
+
+```javascript
+function loader({ server }) {
+	...
+	let data = await server()
+	...
+}
+```
