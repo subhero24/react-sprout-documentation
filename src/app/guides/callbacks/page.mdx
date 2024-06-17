@@ -90,7 +90,7 @@ When a navigation event was canceled, either in the onNavigate callback or in an
 
 When no callback or event handler has prevented the navigation, the onNavigateStart callback will be invoked.
 
-### onActionError(event, error)
+### onActionError(event, actionError)
 
 When the action of a POST navigation throws an error, the onActionError callback will be invoked
 
@@ -100,6 +100,6 @@ When the navigation was aborted, the onAborted callback will be invoked.
 
 A navigation can be aborted automatically by the router because it is interrupted by another navigation. Or navigations can be aborted manually with the [useAbort](/hooks/use-abort) hook.
 
-### onNavigateEnd(event)
+### onNavigateEnd(event, actionResult)
 
 When the navigation was successful, the onNavigateEnd callback will be invoked.
